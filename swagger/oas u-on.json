@@ -1,0 +1,88 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "U-on API",
+    "description" : "Реальное API - На основе выполненных запросов (отличается от документации представленной на портале)",
+    "version" : "1r"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/alek-pol/U-on/1",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://api.u-on.ru",
+    "description" : "U-on api"
+  } ],
+  "tags" : [ {
+    "name" : "Managers",
+    "description" : "Сотрудники компании"
+  } ],
+  "paths" : {
+    "/{key}/manager.{_format}" : {
+      "get" : {
+        "tags" : [ "Managers" ],
+        "summary" : "Список сотрудников компании",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ / API key",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "json"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/manager"
+                  }
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/manager"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Запись не найдена"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "manager" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "ID"
+          }
+        }
+      }
+    }
+  }
+}
