@@ -17,7 +17,7 @@
     "description" : "Сотрудники компании"
   }, {
     "name" : "Users",
-    "description" : "Туристы"
+    "description" : "Туристы / Юр.лица / Турагентства"
   } ],
   "paths" : {
     "/{key}/manager.{_format}" : {
@@ -58,6 +58,54 @@
               "application/xml" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/manager"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Запись не найдена"
+          }
+        }
+      }
+    },
+    "/{key}/user.{_format}" : {
+      "get" : {
+        "tags" : [ "Users" ],
+        "summary" : "Список туристов / юр.лиц / турагентств",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "json"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/users"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/users"
                 }
               }
             }
@@ -112,6 +160,11 @@
                 "schema" : {
                   "$ref" : "#/components/schemas/user"
                 }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/user"
+                }
               }
             }
           },
@@ -151,6 +204,22 @@
           }
         },
         "description" : "Один из (турист / юр.лицо / турагентство)"
+      },
+      "users" : {
+        "type" : "object",
+        "properties" : {
+          "users" : {
+            "type" : "array",
+            "items" : {
+              "anyOf" : [ {
+                "$ref" : "#/components/schemas/user_type_1"
+              }, {
+                "$ref" : "#/components/schemas/user_type_2"
+              } ]
+            }
+          }
+        },
+        "description" : "Список туристов; юр.лиц; турагентств"
       },
       "user_type_1" : {
         "type" : "object",
@@ -220,6 +289,7 @@
             "description" : "Гражданский паспорт (кем выдан)"
           },
           "u_passport_date" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
             "type" : "string",
             "description" : "Гражданский паспорт (дата выдачи)",
             "format" : "date-time"
@@ -229,11 +299,13 @@
             "description" : "Загранпаспорт (серия и номер)"
           },
           "u_zagran_given" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
             "type" : "string",
             "description" : "Загранпаспорт (дата выдачи)",
             "format" : "date-time"
           },
           "u_zagran_expire" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
             "type" : "string",
             "description" : "Загранпаспорт (дата действия)",
             "format" : "date-time"
@@ -243,6 +315,7 @@
             "description" : "Загранпаспорт (кем выдан)"
           },
           "u_birthday" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
             "type" : "string",
             "description" : "День рождения",
             "format" : "date-time"
@@ -343,6 +416,7 @@
             "description" : "Метки (Один или несколько вариантов - \"VIP,Эконом,Лид,Семья,Постоянный клиент,Ездит один,Активный отдых,Экскурсионный отдых,Новый Год\")"
           },
           "u_date_update" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
             "type" : "string",
             "description" : "Дата и время последнего обновления записи",
             "format" : "date-time"
@@ -352,6 +426,7 @@
             "description" : "Личный кабинет (0 - отсутствует, 1 - создан)"
           },
           "cabinet_created_date" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
             "type" : "string",
             "description" : "Личный кабинет (дата создания)",
             "format" : "date-time"
@@ -561,8 +636,9 @@
             "description" : "Метки (Один или несколько вариантов - \"VIP,Эконом,Лид,Семья,Постоянный клиент,Ездит один,Активный отдых,Экскурсионный отдых,Новый Год\")"
           },
           "u_date_update" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
             "type" : "string",
-            "description" : "Дата и время последнего обновления записи",
+            "description" : "bb Дата и время последнего обновления записи",
             "format" : "date-time"
           },
           "cabinet_created" : {
@@ -570,6 +646,7 @@
             "description" : "Личный кабинет (0 - отсутствует, 1 - создан)"
           },
           "cabinet_created_date" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
             "type" : "string",
             "description" : "Личный кабинет (дата создания)",
             "format" : "date-time"
