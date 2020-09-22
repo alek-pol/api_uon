@@ -24,7 +24,7 @@
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
-          "description" : "API-ключ / API key",
+          "description" : "API-ключ",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -49,18 +49,12 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/manager"
-                  }
+                  "$ref" : "#/components/schemas/manager"
                 }
               },
               "application/xml" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/manager"
-                  }
+                  "$ref" : "#/components/schemas/manager"
                 }
               }
             }
@@ -75,11 +69,190 @@
   "components" : {
     "schemas" : {
       "manager" : {
-        "type" : "object",
         "properties" : {
-          "id" : {
-            "type" : "string",
+          "users" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/manager_users"
+            }
+          }
+        }
+      },
+      "manager_users" : {
+        "properties" : {
+          "global_u_id" : {
+            "type" : "integer",
+            "description" : "Global ID"
+          },
+          "u_id" : {
+            "type" : "integer",
             "description" : "ID"
+          },
+          "u_type" : {
+            "type" : "integer",
+            "description" : "Тип записи (1 - физ.лицо, 2 - юр.лицо, 3 - турагентство)"
+          },
+          "tourist_kind" : {
+            "type" : "integer"
+          },
+          "u_surname" : {
+            "type" : "string",
+            "description" : "Фамилия"
+          },
+          "u_name" : {
+            "type" : "string",
+            "description" : "Имя"
+          },
+          "u_sname" : {
+            "type" : "string",
+            "description" : "Отчество"
+          },
+          "u_surname_en" : {
+            "type" : "string",
+            "description" : "Фамилия (англ.)"
+          },
+          "u_name_en" : {
+            "type" : "string",
+            "description" : "Имя (англ.)"
+          },
+          "u_email" : {
+            "type" : "string",
+            "description" : "E-mail"
+          },
+          "u_sex" : {
+            "type" : "integer",
+            "description" : "Пол"
+          },
+          "u_phone" : {
+            "type" : "string",
+            "description" : "Телефон"
+          },
+          "u_phone_mobile" : {
+            "type" : "string",
+            "description" : "Телефон (мобильный)"
+          },
+          "u_phone_home" : {
+            "type" : "string",
+            "description" : "Телефон (домашний)"
+          },
+          "u_passport_number" : {
+            "type" : "string",
+            "description" : "Серия и номер гражданского паспорта туриста"
+          },
+          "u_passport_taken" : {
+            "type" : "string",
+            "description" : "Кем выдан гражданский паспорт"
+          },
+          "u_zagran_number\"" : {
+            "type" : "string",
+            "description" : "Серия и номер загранпаспорта туриста"
+          },
+          "u_birthday" : {
+            "type" : "string",
+            "description" : "День рождения",
+            "format" : "date-time"
+          },
+          "manager_id" : {
+            "type" : "integer"
+          },
+          "u_social_vk" : {
+            "type" : "string",
+            "description" : "Аккаунт во Вконтакте"
+          },
+          "u_social_fb" : {
+            "type" : "string",
+            "description" : "Аккаунт в Facebook"
+          },
+          "u_social_ok" : {
+            "type" : "string",
+            "description" : "Аккаунт в Одноклассниках"
+          },
+          "u_telegram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Telegram"
+          },
+          "u_whatsapp" : {
+            "type" : "string",
+            "description" : "Аккаунт в Whatsapp"
+          },
+          "u_viber" : {
+            "type" : "string",
+            "description" : "Аккаунт в Viber"
+          },
+          "u_instagram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Instagram"
+          },
+          "u_image" : {
+            "type" : "string",
+            "description" : "Фото пользователя (URL)"
+          },
+          "u_note" : {
+            "type" : "string",
+            "description" : "Примечание"
+          },
+          "timezone" : {
+            "type" : "string",
+            "description" : "Часовой пояс (относительно UTC/GMT)"
+          },
+          "source_id" : {
+            "type" : "integer"
+          },
+          "u_position" : {
+            "type" : "string",
+            "description" : "Должность"
+          },
+          "u_manager_status" : {
+            "type" : "integer"
+          },
+          "u_company" : {
+            "type" : "string",
+            "description" : "Название компании (для юр.лица)"
+          },
+          "delivery_subscription" : {
+            "type" : "integer"
+          },
+          "role_id" : {
+            "type" : "integer",
+            "description" : "Группа доступа"
+          },
+          "office_id" : {
+            "type" : "integer",
+            "description" : "ID офиса"
+          },
+          "active" : {
+            "type" : "integer"
+          },
+          "deleted" : {
+            "type" : "integer"
+          },
+          "ip_internal_number" : {
+            "type" : "string",
+            "description" : "Внутренний номер IP-телефонии"
+          },
+          "u_date_update" : {
+            "type" : "string",
+            "description" : "Время обновления",
+            "format" : "date-time"
+          },
+          "cabinet_created" : {
+            "type" : "integer"
+          },
+          "my_new_lead_notification" : {
+            "type" : "integer",
+            "description" : "Уведомление при создании обращения(Менеджер указан ответственным в обращении)"
+          },
+          "any_new_lead_notification" : {
+            "type" : "integer",
+            "description" : "Уведомление при создании обращения (По ВСЕМ обращениям, независимо от прикрепленного менеджера)"
+          },
+          "my_new_request_notification" : {
+            "type" : "integer",
+            "description" : "Уведомление при создании заявки (Менеджер указан ответственным в заявке)"
+          },
+          "any_new_request_notification" : {
+            "type" : "integer",
+            "description" : "Уведомление при создании заявки (По ВСЕМ заявкам, независимо от прикрепленного менеджера)"
           }
         }
       }
