@@ -146,6 +146,18 @@
         },
         "description" : "Физическое лицо"
       },
+      "user_type_2" : {
+        "type" : "object",
+        "properties" : {
+          "users" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/user_type_2_users"
+            }
+          }
+        },
+        "description" : "Юридическое лицо"
+      },
       "manager_users" : {
         "type" : "object",
         "properties" : {
@@ -338,11 +350,11 @@
         "properties" : {
           "id" : {
             "type" : "integer",
-            "description" : "Дополнительные поля (id)"
+            "description" : "Дополнительное поле (id)"
           },
           "value" : {
             "type" : "string",
-            "description" : "Дополнительные поля (значение)"
+            "description" : "Дополнительное поле (значение)"
           }
         }
       },
@@ -514,7 +526,224 @@
           },
           "delivery_subscription" : {
             "type" : "integer",
-            "description" : "Согласие на получение массовых рассылок"
+            "description" : "Согласие на получение массовых рассылок  (0 - Нет, 1 - Да)"
+          },
+          "role_id" : {
+            "type" : "integer",
+            "description" : "Группа доступа"
+          },
+          "active" : {
+            "type" : "integer",
+            "description" : "Активная учетная запись (0 - Нет, 1 - Да)"
+          },
+          "deleted" : {
+            "type" : "integer",
+            "description" : "Удаленная учетная запись (0 - Нет, 1 - Да)"
+          },
+          "ip_internal_number" : {
+            "type" : "string",
+            "description" : "Внутренний номер IP-телефонии"
+          },
+          "labels" : {
+            "type" : "string",
+            "description" : "Метки (Один или несколько вариантов - \"VIP,Эконом,Лид,Семья,Постоянный клиент,Ездит один,Активный отдых,Экскурсионный отдых,Новый Год\")"
+          },
+          "u_date_update" : {
+            "type" : "string",
+            "description" : "Дата и время последнего обновления записи",
+            "format" : "date-time"
+          },
+          "cabinet_created" : {
+            "type" : "integer",
+            "description" : "Личный кабинет (0 - отсутствует, 1 - создан)"
+          },
+          "cabinet_created_date" : {
+            "type" : "string",
+            "description" : "Личный кабинет (дата создания)",
+            "format" : "date-time"
+          },
+          "extended_fields" : {
+            "type" : "array",
+            "description" : "Дополнительные поля (см.метод /extended_field)",
+            "items" : {
+              "$ref" : "#/components/schemas/user_type_1_extended_fields"
+            }
+          }
+        }
+      },
+      "user_type_2_users" : {
+        "type" : "object",
+        "properties" : {
+          "global_u_id" : {
+            "type" : "integer",
+            "description" : "Global ID"
+          },
+          "u_id" : {
+            "type" : "integer",
+            "description" : "ID"
+          },
+          "u_type" : {
+            "type" : "integer",
+            "description" : "Тип записи (2 - юр.лицо)"
+          },
+          "u_surname" : {
+            "type" : "string",
+            "description" : "Контактное лицо (фамилия)"
+          },
+          "u_name" : {
+            "type" : "string",
+            "description" : "Контактное лицо (имя)"
+          },
+          "u_sname" : {
+            "type" : "string",
+            "description" : "Контактное лицо (отчество)"
+          },
+          "u_surname_en" : {
+            "type" : "string",
+            "description" : "Контактное лицо (фамилия лат.)"
+          },
+          "u_name_en" : {
+            "type" : "string",
+            "description" : "Контактное лицо (имя лат.)"
+          },
+          "u_email" : {
+            "type" : "string",
+            "description" : "E-mail"
+          },
+          "u_sex" : {
+            "type" : "integer",
+            "description" : "Пол (0 - не указан, 1 - муж., 2 - жен.)"
+          },
+          "u_fax" : {
+            "type" : "string",
+            "description" : "Факс"
+          },
+          "u_phone" : {
+            "type" : "string",
+            "description" : "Телефон (контактный)"
+          },
+          "u_phone_mobile" : {
+            "type" : "string",
+            "description" : "Телефон (мобильный)"
+          },
+          "u_passport_number" : {
+            "type" : "string",
+            "description" : "Гражданский паспорт (серия и номер)"
+          },
+          "u_passport_taken" : {
+            "type" : "string",
+            "description" : "Гражданский паспорт (кем выдан)"
+          },
+          "u_zagran_number" : {
+            "type" : "string",
+            "description" : "Загранпаспорт (серия и номер)"
+          },
+          "manager_id" : {
+            "type" : "integer",
+            "description" : "Прикрепленный менеджер (id)"
+          },
+          "u_social_vk" : {
+            "type" : "string",
+            "description" : "Аккаунт во Вконтакте"
+          },
+          "u_social_fb" : {
+            "type" : "string",
+            "description" : "Аккаунт в Facebook"
+          },
+          "u_social_ok" : {
+            "type" : "string",
+            "description" : "Аккаунт в Одноклассниках"
+          },
+          "u_telegram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Telegram"
+          },
+          "u_whatsapp" : {
+            "type" : "string",
+            "description" : "Аккаунт в Whatsapp"
+          },
+          "u_viber" : {
+            "type" : "string",
+            "description" : "Аккаунт в Viber"
+          },
+          "u_instagram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Instagram"
+          },
+          "u_image" : {
+            "type" : "string",
+            "description" : "Фото (URL)"
+          },
+          "u_note" : {
+            "type" : "string",
+            "description" : "Примечание"
+          },
+          "timezone" : {
+            "type" : "string",
+            "description" : "Часовой пояс (относительно UTC/GMT)"
+          },
+          "source_id" : {
+            "type" : "integer",
+            "description" : "ID туриста\\компании, который привел добавляемое юр.лицо"
+          },
+          "u_position" : {
+            "type" : "string",
+            "description" : "Должность (контактного лица)"
+          },
+          "u_manager_status" : {
+            "type" : "integer"
+          },
+          "u_company" : {
+            "type" : "string",
+            "description" : "Название компании"
+          },
+          "u_inn" : {
+            "type" : "string",
+            "description" : "ИНН"
+          },
+          "u_kpp" : {
+            "type" : "string",
+            "description" : "КПП"
+          },
+          "u_ogrn" : {
+            "type" : "string",
+            "description" : "ОГРН"
+          },
+          "u_okved" : {
+            "type" : "string",
+            "description" : "ОКВЭД"
+          },
+          "address" : {
+            "type" : "string",
+            "description" : "Адрес"
+          },
+          "address_juridical" : {
+            "type" : "string",
+            "description" : "Адрес юридический"
+          },
+          "u_finance_bank" : {
+            "type" : "string",
+            "description" : "Наименование банка"
+          },
+          "u_finance_rs" : {
+            "type" : "string",
+            "description" : "Р/с"
+          },
+          "u_finance_ks" : {
+            "type" : "string",
+            "description" : "К/с"
+          },
+          "u_finance_bik" : {
+            "type" : "string",
+            "description" : "БИК"
+          },
+          "u_finance_okpo" : {
+            "type" : "string",
+            "description" : "ОКПО"
+          },
+          "delivery_subscription" : {
+            "type" : "integer",
+            "description" : "Согласие на получение массовых рассылок (0 - Нет, 1 - Да)"
           },
           "role_id" : {
             "type" : "integer",
