@@ -68,10 +68,10 @@
         }
       }
     },
-    "/{key}/user.{_format}" : {
+    "/{key}/users/{page}.{_format}" : {
       "get" : {
         "tags" : [ "Users" ],
-        "summary" : "Список туристов / юр.лиц / турагентств",
+        "summary" : "Список туристов / юр.лиц / турагентств (постранично)",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
@@ -81,6 +81,16 @@
           "explode" : false,
           "schema" : {
             "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "path",
+          "description" : "Страница результатов (по 100 записей)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
           }
         }, {
           "name" : "_format",
