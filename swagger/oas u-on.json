@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "U-on API",
-    "description" : "Реальное API - На основе выполненных запросов (отличается от документации представленной на портале)",
+    "description" : "API - На основе выполненных запросов (отличается от документации представленной на портале https://api.u-on.ru/doc)",
     "version" : "1r"
   },
   "servers" : [ {
@@ -15,6 +15,9 @@
   "tags" : [ {
     "name" : "Managers",
     "description" : "Сотрудники компании"
+  }, {
+    "name" : "Users",
+    "description" : "Туристы"
   } ],
   "paths" : {
     "/{key}/manager.{_format}" : {
@@ -64,11 +67,64 @@
           }
         }
       }
+    },
+    "/{key}/user/{id}.{_format}" : {
+      "get" : {
+        "tags" : [ "Users" ],
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID туриста / ID tourist",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "json"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/user_type_1"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Запись не найдена"
+          }
+        }
+      }
     }
   },
   "components" : {
     "schemas" : {
       "manager" : {
+        "type" : "object",
         "properties" : {
           "users" : {
             "type" : "array",
@@ -78,7 +134,20 @@
           }
         }
       },
+      "user_type_1" : {
+        "type" : "object",
+        "properties" : {
+          "users" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/user_type_1_users"
+            }
+          }
+        },
+        "description" : "Физическое лицо"
+      },
       "manager_users" : {
+        "type" : "object",
         "properties" : {
           "global_u_id" : {
             "type" : "integer",
@@ -91,9 +160,6 @@
           "u_type" : {
             "type" : "integer",
             "description" : "Тип записи (1 - физ.лицо, 2 - юр.лицо, 3 - турагентство)"
-          },
-          "tourist_kind" : {
-            "type" : "integer"
           },
           "u_surname" : {
             "type" : "string",
@@ -121,7 +187,7 @@
           },
           "u_sex" : {
             "type" : "integer",
-            "description" : "Пол"
+            "description" : "Пол (0 - не указан, 1 - муж., 2 - жен.)"
           },
           "u_phone" : {
             "type" : "string",
@@ -137,15 +203,15 @@
           },
           "u_passport_number" : {
             "type" : "string",
-            "description" : "Серия и номер гражданского паспорта туриста"
+            "description" : "Гражданский паспорт (серия и номер)"
           },
           "u_passport_taken" : {
             "type" : "string",
-            "description" : "Кем выдан гражданский паспорт"
+            "description" : "Гражданский паспорт (кем выдан)"
           },
           "u_zagran_number\"" : {
             "type" : "string",
-            "description" : "Серия и номер загранпаспорта туриста"
+            "description" : "Загранпаспорт (серия и номер)"
           },
           "u_birthday" : {
             "type" : "string",
@@ -153,7 +219,8 @@
             "format" : "date-time"
           },
           "manager_id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "description" : "Прикрепленный менеджер"
           },
           "u_social_vk" : {
             "type" : "string",
@@ -196,7 +263,8 @@
             "description" : "Часовой пояс (относительно UTC/GMT)"
           },
           "source_id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "description" : "Кто привел (Id)"
           },
           "u_position" : {
             "type" : "string",
@@ -210,7 +278,8 @@
             "description" : "Название компании (для юр.лица)"
           },
           "delivery_subscription" : {
-            "type" : "integer"
+            "type" : "integer",
+            "description" : "Согласие на получение массовых рассылок"
           },
           "role_id" : {
             "type" : "integer",
@@ -221,10 +290,12 @@
             "description" : "ID офиса"
           },
           "active" : {
-            "type" : "integer"
+            "type" : "integer",
+            "description" : "Активная учетная запись (0 - Нет, 1 - Да)"
           },
           "deleted" : {
-            "type" : "integer"
+            "type" : "integer",
+            "description" : "Удаленная учетная запись (0 - Нет, 1 - Да)"
           },
           "ip_internal_number" : {
             "type" : "string",
@@ -232,11 +303,17 @@
           },
           "u_date_update" : {
             "type" : "string",
-            "description" : "Время обновления",
+            "description" : "Дата и время последнего обновления записи",
             "format" : "date-time"
           },
           "cabinet_created" : {
-            "type" : "integer"
+            "type" : "integer",
+            "description" : "Личный кабинет (0 - отсутствует, 1 - создан)"
+          },
+          "cabinet_created_date" : {
+            "type" : "string",
+            "description" : "Личный кабинет (дата создания)",
+            "format" : "date-time"
           },
           "my_new_lead_notification" : {
             "type" : "integer",
@@ -253,6 +330,232 @@
           "any_new_request_notification" : {
             "type" : "integer",
             "description" : "Уведомление при создании заявки (По ВСЕМ заявкам, независимо от прикрепленного менеджера)"
+          }
+        }
+      },
+      "user_type_1_extended_fields" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "Дополнительные поля (id)"
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "Дополнительные поля (значение)"
+          }
+        }
+      },
+      "user_type_1_users" : {
+        "type" : "object",
+        "properties" : {
+          "global_u_id" : {
+            "type" : "integer",
+            "description" : "Global ID"
+          },
+          "u_id" : {
+            "type" : "integer",
+            "description" : "ID"
+          },
+          "u_type" : {
+            "type" : "integer",
+            "description" : "Тип записи (1 - физ.лицо)"
+          },
+          "tourist_kind" : {
+            "type" : "string",
+            "description" : "Обращение (0 - не заполнено, 1 - Mr., 2 - Mrs., 3 - Miss, 4 - Child, 5 - Infant)"
+          },
+          "u_surname" : {
+            "type" : "string",
+            "description" : "Фамилия туриста"
+          },
+          "u_name" : {
+            "type" : "string",
+            "description" : "Имя туриста"
+          },
+          "u_sname" : {
+            "type" : "string",
+            "description" : "Отчество туриста"
+          },
+          "u_surname_en" : {
+            "type" : "string",
+            "description" : "Фамилия туриста (латиницей)"
+          },
+          "u_name_en" : {
+            "type" : "string",
+            "description" : "Имя туриста (латиницей)"
+          },
+          "u_email" : {
+            "type" : "string",
+            "description" : "E-mail туриста"
+          },
+          "u_sex" : {
+            "type" : "integer",
+            "description" : "Пол туриста (0 - не указан, 1 - муж., 2 - жен.)"
+          },
+          "u_phone" : {
+            "type" : "string",
+            "description" : "Телефон"
+          },
+          "u_phone_mobile" : {
+            "type" : "string",
+            "description" : "Телефон (мобильный)"
+          },
+          "u_phone_home" : {
+            "type" : "string",
+            "description" : "Телефон (домашний)"
+          },
+          "u_passport_number" : {
+            "type" : "string",
+            "description" : "Гражданский паспорт (серия и номер)"
+          },
+          "u_passport_taken" : {
+            "type" : "string",
+            "description" : "Гражданский паспорт (кем выдан)"
+          },
+          "u_passport_date" : {
+            "type" : "string",
+            "description" : "Гражданский паспорт (дата выдачи)",
+            "format" : "date-time"
+          },
+          "u_zagran_number" : {
+            "type" : "string",
+            "description" : "Загранпаспорт (серия и номер)"
+          },
+          "u_zagran_given" : {
+            "type" : "string",
+            "description" : "Загранпаспорт (дата выдачи)",
+            "format" : "date-time"
+          },
+          "u_zagran_expire" : {
+            "type" : "string",
+            "description" : "Загранпаспорт (дата действия)",
+            "format" : "date-time"
+          },
+          "u_zagran_organization" : {
+            "type" : "string",
+            "description" : "Загранпаспорт (кем выдан)"
+          },
+          "u_birthday" : {
+            "type" : "string",
+            "description" : "День рождения",
+            "format" : "date-time"
+          },
+          "u_birthday_place" : {
+            "type" : "string",
+            "description" : "Место рождения"
+          },
+          "u_birthday_certificate" : {
+            "type" : "string",
+            "description" : "Свидетельство о рождении"
+          },
+          "manager_id" : {
+            "type" : "integer",
+            "description" : "Прикрепленный менеджер (id)"
+          },
+          "u_social_vk" : {
+            "type" : "string",
+            "description" : "Аккаунт во Вконтакте"
+          },
+          "u_social_fb" : {
+            "type" : "string",
+            "description" : "Аккаунт в Facebook"
+          },
+          "u_social_ok" : {
+            "type" : "string",
+            "description" : "Аккаунт в Одноклассниках"
+          },
+          "u_telegram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Telegram"
+          },
+          "u_whatsapp" : {
+            "type" : "string",
+            "description" : "Аккаунт в Whatsapp"
+          },
+          "u_viber" : {
+            "type" : "string",
+            "description" : "Аккаунт в Viber"
+          },
+          "u_instagram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Instagram"
+          },
+          "u_image" : {
+            "type" : "string",
+            "description" : "Фото пользователя (URL)"
+          },
+          "u_note" : {
+            "type" : "string",
+            "description" : "Примечание"
+          },
+          "timezone" : {
+            "type" : "string",
+            "description" : "Часовой пояс (относительно UTC/GMT)"
+          },
+          "source_id" : {
+            "type" : "integer",
+            "description" : "ID туриста\\компании, который привел добавляемого туриста"
+          },
+          "u_manager_status" : {
+            "type" : "integer"
+          },
+          "u_company" : {
+            "type" : "string",
+            "description" : "Название компании"
+          },
+          "u_inn" : {
+            "type" : "string",
+            "description" : "ИНН"
+          },
+          "address" : {
+            "type" : "string",
+            "description" : "Адрес регистрации"
+          },
+          "delivery_subscription" : {
+            "type" : "integer",
+            "description" : "Согласие на получение массовых рассылок"
+          },
+          "role_id" : {
+            "type" : "integer",
+            "description" : "Группа доступа"
+          },
+          "active" : {
+            "type" : "integer",
+            "description" : "Активная учетная запись (0 - Нет, 1 - Да)"
+          },
+          "deleted" : {
+            "type" : "integer",
+            "description" : "Удаленная учетная запись (0 - Нет, 1 - Да)"
+          },
+          "ip_internal_number" : {
+            "type" : "string",
+            "description" : "Внутренний номер IP-телефонии"
+          },
+          "labels" : {
+            "type" : "string",
+            "description" : "Метки (Один или несколько вариантов - \"VIP,Эконом,Лид,Семья,Постоянный клиент,Ездит один,Активный отдых,Экскурсионный отдых,Новый Год\")"
+          },
+          "u_date_update" : {
+            "type" : "string",
+            "description" : "Дата и время последнего обновления записи",
+            "format" : "date-time"
+          },
+          "cabinet_created" : {
+            "type" : "integer",
+            "description" : "Личный кабинет (0 - отсутствует, 1 - создан)"
+          },
+          "cabinet_created_date" : {
+            "type" : "string",
+            "description" : "Личный кабинет (дата создания)",
+            "format" : "date-time"
+          },
+          "extended_fields" : {
+            "type" : "array",
+            "description" : "Дополнительные поля (см.метод /extended_field)",
+            "items" : {
+              "$ref" : "#/components/schemas/user_type_1_extended_fields"
+            }
           }
         }
       }
