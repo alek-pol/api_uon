@@ -446,6 +446,161 @@
           }
         }
       }
+    },
+    "/{key}/user/create.{_format}" : {
+      "post" : {
+        "tags" : [ "Users" ],
+        "summary" : "Добавление туриста / юр.лица / турагентства",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "json"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/user_create"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/200_result_id"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/200_result_id"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/user/update/{id}.{_format}" : {
+      "post" : {
+        "tags" : [ "Users" ],
+        "summary" : "Обновление туриста / юр.лица / турагентства",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID туриста / компании / турагентства",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "json"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/user_update"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/user_update"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/200_result_id"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/200_result_id"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_1"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -514,6 +669,248 @@
         },
         "description" : "Список туристов; юр.лиц; турагентств"
       },
+      "user_create" : {
+        "required" : [ "u_name" ],
+        "type" : "object",
+        "properties" : {
+          "u_type" : {
+            "type" : "integer",
+            "description" : "Тип записи (1 - физ.лицо, 2 - юр.лицо, 3 - турагентство)"
+          },
+          "u_tk_id" : {
+            "type" : "integer",
+            "description" : "Обращение (0 - не заполнено, 1 - Mr., 2 - Mrs., 3 - Miss, 4 - Child, 5 - Infant)"
+          },
+          "u_company" : {
+            "type" : "string",
+            "description" : "Название компании (для юр.лица)"
+          },
+          "u_name" : {
+            "type" : "string",
+            "description" : "Имя туриста / контактного лица"
+          },
+          "u_surname" : {
+            "type" : "string",
+            "description" : "Фамилия туриста / контактного лица"
+          },
+          "u_sname" : {
+            "type" : "string",
+            "description" : "Отчество туриста / контактного лица"
+          },
+          "u_name_en" : {
+            "type" : "string",
+            "description" : "Имя туриста / контактного лица (латиницей)"
+          },
+          "u_surname_en" : {
+            "type" : "string",
+            "description" : "Фамилия туриста / контактного лица (латиницей)"
+          },
+          "u_phone" : {
+            "type" : "string",
+            "description" : "Телефон туриста / контактного лица"
+          },
+          "u_phone_mobile" : {
+            "type" : "string",
+            "description" : "Телефон (мобильный)"
+          },
+          "u_email" : {
+            "type" : "string",
+            "description" : "E-mail туриста / контактного лица"
+          },
+          "u_birthday" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "description" : "День рождения",
+            "format" : "date"
+          },
+          "u_birthday_place" : {
+            "type" : "string",
+            "description" : "Место рождения"
+          },
+          "u_birthday_certificate" : {
+            "type" : "string",
+            "description" : "Свидетельство о рождении"
+          },
+          "u_birthday_certificate_given" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "description" : "Свидетельство о рождении (дата выдачи)",
+            "format" : "date"
+          },
+          "u_birthday_certificate_organization" : {
+            "type" : "string",
+            "description" : "Свидетельство о рождении (кем выдано)"
+          },
+          "u_zagran_number" : {
+            "type" : "string",
+            "description" : "Загранпаспорт (серия и номер)"
+          },
+          "u_zagran_given" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "description" : "Загранпаспорт (дата выдачи)",
+            "format" : "date"
+          },
+          "u_zagran_expire" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "description" : "Загранпаспорт (дата окончания)",
+            "format" : "date"
+          },
+          "u_zagran_organization" : {
+            "type" : "string",
+            "description" : "Загранпаспорт (кем выдан)"
+          },
+          "u_passport_number" : {
+            "type" : "string",
+            "description" : "Гражданский паспорт (серия и номер)"
+          },
+          "u_passport_taken" : {
+            "type" : "string",
+            "description" : "Гражданский паспорт (кем выдан)"
+          },
+          "u_passport_date" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "description" : "Гражданский паспорт (дата выдачи)",
+            "format" : "date"
+          },
+          "u_address" : {
+            "type" : "string",
+            "description" : "Адрес регистрации"
+          },
+          "u_password" : {
+            "type" : "string",
+            "description" : "Пароль"
+          },
+          "u_sex" : {
+            "type" : "integer",
+            "description" : "Пол (0 - не указан, 1 - муж., 2 - жен.)"
+          },
+          "u_note" : {
+            "type" : "string",
+            "description" : "Примечание"
+          },
+          "u_address_u" : {
+            "type" : "string",
+            "description" : "Юридический адрес (для юр.лиц)"
+          },
+          "u_fax" : {
+            "type" : "string",
+            "description" : "Факс (для юр.лиц)"
+          },
+          "u_inn" : {
+            "type" : "string",
+            "description" : "ИНН"
+          },
+          "u_kpp" : {
+            "type" : "string",
+            "description" : "КПП (для юр.лиц)"
+          },
+          "u_ogrn" : {
+            "type" : "string",
+            "description" : "ОГРН (для юр.лиц)"
+          },
+          "u_okved" : {
+            "type" : "string",
+            "description" : "ОКВЭД (для юр.лиц)"
+          },
+          "u_finance_bank" : {
+            "type" : "string",
+            "description" : "Наименование банка (для юр.лиц)"
+          },
+          "u_finance_rs" : {
+            "type" : "string",
+            "description" : "Р/с (для юр.лиц)"
+          },
+          "u_finance_ks" : {
+            "type" : "string",
+            "description" : "К/с (для юр.лиц)"
+          },
+          "u_finance_bik" : {
+            "type" : "string",
+            "description" : "БИК (для юр.лиц)"
+          },
+          "u_finance_okpo" : {
+            "type" : "string",
+            "description" : "ОКПО (для юр.лиц)"
+          },
+          "u_social_vk" : {
+            "type" : "string",
+            "description" : "Аккаунт во Вконтакте"
+          },
+          "u_social_fb" : {
+            "type" : "string",
+            "description" : "Аккаунт в Facebook"
+          },
+          "u_social_ok" : {
+            "type" : "string",
+            "description" : "Аккаунт в Одноклассниках"
+          },
+          "u_telegram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Telegram"
+          },
+          "u_whatsapp" : {
+            "type" : "string",
+            "description" : "Аккаунт в Whatsapp"
+          },
+          "u_viber" : {
+            "type" : "string",
+            "description" : "Аккаунт в Vibe"
+          },
+          "u_instagram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Instagram"
+          },
+          "u_discount_card_number" : {
+            "type" : "string",
+            "description" : "Бонусная карта (Номер)"
+          },
+          "u_discount_card_bonus" : {
+            "type" : "integer",
+            "description" : "Бонусная карта (Количество бонусов на карте)"
+          },
+          "u_labels" : {
+            "type" : "string",
+            "description" : "Список меток (через запятую)"
+          },
+          "nationality_id" : {
+            "type" : "integer",
+            "description" : "ID страны (см. метод /countries)"
+          },
+          "u_office_id" : {
+            "type" : "integer",
+            "description" : "ID офиса (см. метод /company-office)"
+          },
+          "u_manager_id" : {
+            "type" : "integer",
+            "description" : "ID прикрепленного менеджера (см. метод /manager)"
+          },
+          "u_source" : {
+            "type" : "integer",
+            "description" : "ID туриста\\компании, который привел добавляемого туриста"
+          },
+          "extended_fields" : {
+            "type" : "array",
+            "description" : "Массив значений дополнительных полей в виде [ID доп.поля => значение, ID доп.поля2 => значение2, ...] (см.метод /extended_field). ВАЖНО! Чтобы дополнительное поле относилось к туристам",
+            "items" : {
+              "$ref" : "#/components/schemas/user_create_extended_fields"
+            }
+          }
+        },
+        "description" : "Параметры создаваемого пользователя"
+      },
+      "user_update" : {
+        "type" : "object",
+        "properties" : {
+          "u_name" : {
+            "type" : "string",
+            "description" : "Имя туриста / контактного лица"
+          }
+        },
+        "description" : "Обновляемые параметры пользователя"
+      },
       "user_type_1" : {
         "type" : "object",
         "properties" : {
@@ -530,7 +927,7 @@
             "description" : "Тип записи (1 - физ.лицо)"
           },
           "tourist_kind" : {
-            "type" : "string",
+            "type" : "integer",
             "description" : "Обращение (0 - не заполнено, 1 - Mr., 2 - Mrs., 3 - Miss, 4 - Child, 5 - Infant)"
           },
           "u_surname" : {
@@ -558,7 +955,7 @@
             "description" : "E-mail туриста"
           },
           "u_sex" : {
-            "type" : "integer",
+            "type" : "string",
             "description" : "Пол туриста (0 - не указан, 1 - муж., 2 - жен.)"
           },
           "u_phone" : {
@@ -688,6 +1085,18 @@
             "type" : "integer",
             "description" : "Согласие на получение массовых рассылок  (0 - Нет, 1 - Да)"
           },
+          "bcard_id" : {
+            "type" : "integer",
+            "description" : "Бонусная карта (Id)"
+          },
+          "bcard_number" : {
+            "type" : "string",
+            "description" : "Бонусная карта (Номер)"
+          },
+          "bcard_value" : {
+            "type" : "integer",
+            "description" : "Бонусная карта (Количество бонусов на карте)"
+          },
           "role_id" : {
             "type" : "integer",
             "description" : "Группа доступа"
@@ -728,7 +1137,7 @@
             "type" : "array",
             "description" : "Дополнительные поля (см.метод /extended_field)",
             "items" : {
-              "$ref" : "#/components/schemas/user_type_1_extended_fields"
+              "$ref" : "#/components/schemas/user_create_extended_fields"
             }
           }
         },
@@ -908,6 +1317,18 @@
             "type" : "integer",
             "description" : "Согласие на получение массовых рассылок (0 - Нет, 1 - Да)"
           },
+          "bcard_id" : {
+            "type" : "integer",
+            "description" : "Бонусная карта (Id)"
+          },
+          "bcard_number" : {
+            "type" : "string",
+            "description" : "Бонусная карта (Номер)"
+          },
+          "bcard_value" : {
+            "type" : "integer",
+            "description" : "Бонусная карта (Количество бонусов на карте)"
+          },
           "role_id" : {
             "type" : "integer",
             "description" : "Группа доступа"
@@ -948,11 +1369,67 @@
             "type" : "array",
             "description" : "Дополнительные поля (см.метод /extended_field)",
             "items" : {
-              "$ref" : "#/components/schemas/user_type_1_extended_fields"
+              "$ref" : "#/components/schemas/user_create_extended_fields"
             }
           }
         },
         "description" : "Юридическое лицо / Турагентство"
+      },
+      "200_result_id" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "integer",
+            "example" : 200
+          },
+          "id" : {
+            "type" : "string",
+            "example" : "11"
+          }
+        },
+        "description" : "Успешное выполнение (200 и id)"
+      },
+      "400_bad_request" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "example" : 400
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Bad Request"
+          }
+        },
+        "description" : "Ошибка в запросе"
+      },
+      "404_wrong_key" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "integer",
+            "example" : 404
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Partner key is wrong"
+          }
+        },
+        "description" : "Партнерский ключ неверен"
+      },
+      "404_empty_field" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "integer",
+            "example" : 404
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Field <_____> is empty"
+          }
+        },
+        "description" : "Не заполнено обязательное поле"
       },
       "body" : {
         "type" : "object",
@@ -1007,6 +1484,22 @@
             "description" : "Номер страницы выдачи (по-умолчанию, 1)"
           }
         }
+      },
+      "inline_response_404" : {
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/400_bad_request"
+        }, {
+          "$ref" : "#/components/schemas/404_wrong_key"
+        }, {
+          "$ref" : "#/components/schemas/404_empty_field"
+        } ]
+      },
+      "inline_response_404_1" : {
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/400_bad_request"
+        }, {
+          "$ref" : "#/components/schemas/404_wrong_key"
+        } ]
       },
       "manager_users" : {
         "type" : "object",
@@ -1195,7 +1688,7 @@
           }
         }
       },
-      "user_type_1_extended_fields" : {
+      "user_create_extended_fields" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -1205,6 +1698,85 @@
           "value" : {
             "type" : "string",
             "description" : "Дополнительное поле (значение)"
+          }
+        }
+      }
+    },
+    "responses" : {
+      "200_result_id" : {
+        "description" : "Успешное выполнение",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/200_result_id"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/200_result_id"
+            }
+          }
+        }
+      },
+      "400_bad_request" : {
+        "description" : "Ошибка в запросе",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/400_bad_request"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/400_bad_request"
+            }
+          }
+        }
+      },
+      "404_wrong_key" : {
+        "description" : "Партнерский ключ неверен",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/404_wrong_key"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/404_wrong_key"
+            }
+          }
+        }
+      },
+      "404_empty_field" : {
+        "description" : "Не заполнено обязательное поле",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/404_empty_field"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/404_empty_field"
+            }
+          }
+        }
+      }
+    },
+    "requestBodies" : {
+      "user_update" : {
+        "description" : "Обновляемые параметры пользователя",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/user_update"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/user_update"
+            }
           }
         }
       }
