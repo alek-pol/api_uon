@@ -271,7 +271,7 @@
     "/{key}/user/email.{_format}" : {
       "post" : {
         "tags" : [ "Users" ],
-        "summary" : "Поиск туриста / юр.лица / турагентства по номеру телефона",
+        "summary" : "Поиск туриста / юр.лица / турагентства по E-mail",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
