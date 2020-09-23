@@ -230,7 +230,7 @@
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "pattern" : "/^\\+\\d{5,}$|^\\d{5,}$/",
+            "pattern" : "^\\+\\d{5,}$|^\\d{5,}$",
             "type" : "string",
             "format" : "date"
           }
@@ -298,14 +298,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "type" : "string",
-                "description" : "E-mail"
-              }
-            },
-            "application/xml" : {
-              "schema" : {
-                "type" : "string",
-                "description" : "E-mail"
+                "$ref" : "#/components/schemas/body"
               }
             }
           },
@@ -323,6 +316,64 @@
               "application/xml" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/users"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Запись не найдена"
+          }
+        }
+      }
+    },
+    "/{key}/user/search.{_format}" : {
+      "post" : {
+        "tags" : [ "Users" ],
+        "summary" : "Получение данных пользователей по фильтрам",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "json"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_1"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/users_search"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/users_search"
                 }
               }
             }
@@ -439,6 +490,26 @@
                 "$ref" : "#/components/schemas/user_type_2"
               } ]
             }
+          }
+        },
+        "description" : "Список туристов; юр.лиц; турагентств"
+      },
+      "users_search" : {
+        "type" : "object",
+        "properties" : {
+          "users" : {
+            "type" : "array",
+            "items" : {
+              "anyOf" : [ {
+                "$ref" : "#/components/schemas/user_type_1"
+              }, {
+                "$ref" : "#/components/schemas/user_type_2"
+              } ]
+            }
+          },
+          "count_all" : {
+            "type" : "string",
+            "description" : "Найдено записей"
           }
         },
         "description" : "Список туристов; юр.лиц; турагентств"
@@ -882,6 +953,60 @@
           }
         },
         "description" : "Юридическое лицо / Турагентство"
+      },
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string",
+            "description" : "E-mail"
+          }
+        }
+      },
+      "body_1" : {
+        "type" : "object",
+        "properties" : {
+          "vkontakte" : {
+            "type" : "string",
+            "description" : "Аккаунт в Vkontakte"
+          },
+          "facebook" : {
+            "type" : "string",
+            "description" : "Аккаунт в Facebook"
+          },
+          "odnoklassniki" : {
+            "type" : "string",
+            "description" : "Аккаунт в Odnoklassniki"
+          },
+          "telegram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Telegram"
+          },
+          "whatsapp" : {
+            "type" : "string",
+            "description" : "Аккаунт в Whatsapp"
+          },
+          "viber" : {
+            "type" : "string",
+            "description" : "Аккаунт в Viber"
+          },
+          "instagram" : {
+            "type" : "string",
+            "description" : "Аккаунт в Instagram"
+          },
+          "label_ids" : {
+            "type" : "string",
+            "description" : "ID меток через запятую"
+          },
+          "part_match" : {
+            "type" : "integer",
+            "description" : "Полное совпадение (по-умолчанию) или частичное (=1)"
+          },
+          "page" : {
+            "type" : "integer",
+            "description" : "Номер страницы выдачи (по-умолчанию, 1)"
+          }
+        }
       },
       "manager_users" : {
         "type" : "object",
