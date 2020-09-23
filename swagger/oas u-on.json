@@ -268,6 +268,71 @@
         }
       }
     },
+    "/{key}/user/email.{_format}" : {
+      "post" : {
+        "tags" : [ "Users" ],
+        "summary" : "Поиск туриста / юр.лица / турагентства по номеру телефона",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "json"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string",
+                "description" : "E-mail"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "type" : "string",
+                "description" : "E-mail"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/users"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/users"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Запись не найдена"
+          }
+        }
+      }
+    },
     "/{key}/user/{id}.{_format}" : {
       "get" : {
         "tags" : [ "Users" ],
@@ -316,6 +381,11 @@
               "application/xml" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/user"
+                }
+              },
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
                 }
               }
             }
