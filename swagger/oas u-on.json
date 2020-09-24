@@ -6,11 +6,11 @@
     "version" : "1r"
   },
   "servers" : [ {
-    "url" : "https://virtserver.swaggerhub.com/alek-pol/U-on/1",
-    "description" : "SwaggerHub API Auto Mocking"
-  }, {
     "url" : "https://api.u-on.ru",
     "description" : "U-on api"
+  }, {
+    "url" : "https://virtserver.swaggerhub.com/alek-pol/U-on/1",
+    "description" : "SwaggerHub API Auto Mocking"
   } ],
   "tags" : [ {
     "name" : "Managers",
@@ -37,7 +37,7 @@
         }, {
           "name" : "_format",
           "in" : "path",
-          "description" : "Формат выдачи результатов",
+          "description" : "Формат выдачи результатов (json|xml)",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -95,7 +95,7 @@
         }, {
           "name" : "_format",
           "in" : "path",
-          "description" : "Формат выдачи результатов",
+          "description" : "Формат выдачи результатов (json|xml)",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -177,7 +177,7 @@
         }, {
           "name" : "_format",
           "in" : "path",
-          "description" : "Формат выдачи результатов",
+          "description" : "Формат выдачи результатов (json|xml)",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -230,14 +230,14 @@
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "pattern" : "^\\+\\d{5,}$|^\\d{5,}$",
+            "pattern" : "^\\+\\d*$|^\\d*$",
             "type" : "string",
             "format" : "date"
           }
         }, {
           "name" : "_format",
           "in" : "path",
-          "description" : "Формат выдачи результатов",
+          "description" : "Формат выдачи результатов (json|xml)",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -285,7 +285,7 @@
         }, {
           "name" : "_format",
           "in" : "path",
-          "description" : "Формат выдачи результатов",
+          "description" : "Формат выдачи результатов (json|xml)",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -343,7 +343,7 @@
         }, {
           "name" : "_format",
           "in" : "path",
-          "description" : "Формат выдачи результатов",
+          "description" : "Формат выдачи результатов (json|xml)",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -411,7 +411,7 @@
         }, {
           "name" : "_format",
           "in" : "path",
-          "description" : "Формат выдачи результатов",
+          "description" : "Формат выдачи результатов (json|xml)",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -464,7 +464,7 @@
         }, {
           "name" : "_format",
           "in" : "path",
-          "description" : "Формат выдачи результатов",
+          "description" : "Формат выдачи результатов (json|xml)",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -544,7 +544,7 @@
         }, {
           "name" : "_format",
           "in" : "path",
-          "description" : "Формат выдачи результатов",
+          "description" : "Формат выдачи результатов (json|xml)",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -1761,6 +1761,92 @@
               "$ref" : "#/components/schemas/404_empty_field"
             }
           }
+        }
+      }
+    },
+    "parameters" : {
+      "keyParam" : {
+        "name" : "key",
+        "in" : "path",
+        "description" : "API-ключ",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "formatParam" : {
+        "name" : "_format",
+        "in" : "path",
+        "description" : "Формат выдачи результатов (json|xml)",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string",
+          "default" : "json"
+        }
+      },
+      "idParam" : {
+        "name" : "id",
+        "in" : "path",
+        "description" : "ID туриста / компании / турагентства",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "integer"
+        }
+      },
+      "pageParam" : {
+        "name" : "page",
+        "in" : "path",
+        "description" : "Страница результатов (по 100 записей)",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "integer"
+        }
+      },
+      "dateFromParam" : {
+        "name" : "date_from",
+        "in" : "path",
+        "description" : "Дата последнего обновления туриста (от)",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+          "type" : "string",
+          "format" : "date"
+        }
+      },
+      "dateToParam" : {
+        "name" : "date_to",
+        "in" : "path",
+        "description" : "Дата последнего обновления туриста (до)",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+          "type" : "string",
+          "format" : "date"
+        }
+      },
+      "phoneParam" : {
+        "name" : "phone",
+        "in" : "path",
+        "description" : "Номер телефона",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "pattern" : "^\\+\\d*$|^\\d*$",
+          "type" : "string",
+          "format" : "date"
         }
       }
     },
