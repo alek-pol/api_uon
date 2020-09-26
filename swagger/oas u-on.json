@@ -18,6 +18,9 @@
   }, {
     "name" : "Users",
     "description" : "Туристы / Юр.лица / Турагентства"
+  }, {
+    "name" : "Countries",
+    "description" : "Страны"
   } ],
   "paths" : {
     "/{key}/manager.{_format}" : {
@@ -54,10 +57,205 @@
                 "schema" : {
                   "$ref" : "#/components/schemas/manager"
                 }
-              },
-              "application/xml" : {
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/manager"
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/countries.{_format}" : {
+      "get" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Получение списка стран",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/country/create.{_format}" : {
+      "post" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Добавление страны",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/400_bad_request"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Ошибка (Не заполнено поле или Партнерский ключ)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/country/update/{id}.{_format}" : {
+      "post" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Обновление данных по стране",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/country"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/400_bad_request"
                 }
               }
             }
@@ -117,7 +315,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "$ref" : "#/components/schemas/inline_response_200_2"
                 }
               }
             }
@@ -211,7 +409,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_1"
+                  "$ref" : "#/components/schemas/inline_response_200_3"
                 }
               }
             }
@@ -283,7 +481,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_2"
+                  "$ref" : "#/components/schemas/inline_response_200_4"
                 }
               }
             }
@@ -331,7 +529,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body"
+                "$ref" : "#/components/schemas/body_1"
               }
             }
           },
@@ -433,7 +631,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_1"
+                "$ref" : "#/components/schemas/body_2"
               }
             }
           },
@@ -445,7 +643,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_3"
+                  "$ref" : "#/components/schemas/inline_response_200_5"
                 }
               }
             }
@@ -500,7 +698,7 @@
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "ID туриста / компании / турагентства",
+          "description" : "ID",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -525,7 +723,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_4"
+                  "$ref" : "#/components/schemas/inline_response_200_6"
                 }
               }
             }
@@ -573,7 +771,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_2"
+                "$ref" : "#/components/schemas/body_3"
               }
             }
           },
@@ -585,7 +783,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_5"
+                  "$ref" : "#/components/schemas/inline_response_200_1"
                 }
               }
             }
@@ -630,7 +828,7 @@
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "ID туриста / компании / турагентства",
+          "description" : "ID",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -653,7 +851,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_3"
+                "$ref" : "#/components/schemas/body_4"
               }
             }
           },
@@ -665,7 +863,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_5"
+                  "$ref" : "#/components/schemas/inline_response_200_1"
                 }
               }
             }
@@ -707,6 +905,20 @@
           }
         },
         "description" : "Список сотрудников"
+      },
+      "country" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "Название"
+          },
+          "name_en" : {
+            "type" : "string",
+            "description" : "Название латиницей"
+          }
+        },
+        "description" : "Название страны"
       },
       "model_user_main" : {
         "allOf" : [ {
@@ -1353,6 +1565,63 @@
       "inline_response_200" : {
         "type" : "object",
         "properties" : {
+          "records" : {
+            "type" : "array",
+            "items" : {
+              "allOf" : [ {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "description" : "Id"
+                  }
+                }
+              }, {
+                "$ref" : "#/components/schemas/country"
+              }, {
+                "type" : "object",
+                "properties" : {
+                  "name_aliases" : {
+                    "type" : "string",
+                    "description" : "Id"
+                  }
+                }
+              } ]
+            }
+          }
+        },
+        "description" : "Список стран"
+      },
+      "body" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/country"
+        }, {
+          "required" : [ "name" ]
+        } ]
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "integer",
+            "example" : 200
+          },
+          "id" : {
+            "type" : "string",
+            "example" : "11"
+          }
+        }
+      },
+      "inline_response_404_1" : {
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/404_wrong_key"
+        }, {
+          "$ref" : "#/components/schemas/404_empty_field"
+        } ]
+      },
+      "inline_response_200_2" : {
+        "type" : "object",
+        "properties" : {
           "users" : {
             "type" : "array",
             "items" : {
@@ -1373,7 +1642,7 @@
           }
         }
       },
-      "inline_response_200_1" : {
+      "inline_response_200_3" : {
         "type" : "object",
         "properties" : {
           "users" : {
@@ -1384,7 +1653,7 @@
           }
         }
       },
-      "inline_response_200_2" : {
+      "inline_response_200_4" : {
         "type" : "object",
         "properties" : {
           "users" : {
@@ -1417,7 +1686,7 @@
           }
         }
       },
-      "body" : {
+      "body_1" : {
         "type" : "object",
         "properties" : {
           "email" : {
@@ -1434,14 +1703,7 @@
           }
         }
       },
-      "inline_response_404_1" : {
-        "oneOf" : [ {
-          "$ref" : "#/components/schemas/404_wrong_key"
-        }, {
-          "$ref" : "#/components/schemas/404_empty_field"
-        } ]
-      },
-      "body_1" : {
+      "body_2" : {
         "type" : "object",
         "properties" : {
           "vkontakte" : {
@@ -1486,7 +1748,7 @@
           }
         }
       },
-      "inline_response_200_3" : {
+      "inline_response_200_5" : {
         "type" : "object",
         "properties" : {
           "users" : {
@@ -1501,7 +1763,7 @@
           }
         }
       },
-      "inline_response_200_4" : {
+      "inline_response_200_6" : {
         "type" : "object",
         "properties" : {
           "user" : {
@@ -1516,7 +1778,7 @@
           }
         }
       },
-      "body_2" : {
+      "body_3" : {
         "type" : "object",
         "allOf" : [ {
           "type" : "object",
@@ -1542,20 +1804,7 @@
           "$ref" : "#/components/schemas/model_user_update"
         } ]
       },
-      "inline_response_200_5" : {
-        "type" : "object",
-        "properties" : {
-          "result" : {
-            "type" : "integer",
-            "example" : 200
-          },
-          "id" : {
-            "type" : "string",
-            "example" : "11"
-          }
-        }
-      },
-      "body_3" : {
+      "body_4" : {
         "type" : "object",
         "allOf" : [ {
           "type" : "object",
@@ -1776,7 +2025,7 @@
         "content" : {
           "application/json" : {
             "schema" : {
-              "$ref" : "#/components/schemas/inline_response_200_5"
+              "$ref" : "#/components/schemas/inline_response_200_1"
             }
           }
         }
@@ -1879,7 +2128,7 @@
       "idParam" : {
         "name" : "id",
         "in" : "path",
-        "description" : "ID туриста / компании / турагентства",
+        "description" : "ID",
         "required" : true,
         "style" : "simple",
         "explode" : false,
