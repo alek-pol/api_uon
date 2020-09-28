@@ -19,8 +19,14 @@
     "name" : "Users",
     "description" : "Туристы / Юр.лица / Турагентства"
   }, {
+    "name" : "Leads",
+    "description" : "Обращения"
+  }, {
     "name" : "Countries",
     "description" : "Страны"
+  }, {
+    "name" : "Service types",
+    "description" : "Типы услуг"
   } ],
   "paths" : {
     "/{key}/manager.{_format}" : {
@@ -56,206 +62,6 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/manager"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Партнерский ключ неверен",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_404"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{key}/countries.{_format}" : {
-      "get" : {
-        "tags" : [ "Countries" ],
-        "summary" : "Получение списка стран",
-        "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "_format",
-          "in" : "path",
-          "description" : "Формат выдачи результатов (json|xml)",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string",
-            "enum" : [ "json", "xml" ]
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Успешное выполнение",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Партнерский ключ неверен",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_404"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{key}/country/create.{_format}" : {
-      "post" : {
-        "tags" : [ "Countries" ],
-        "summary" : "Добавление страны",
-        "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "_format",
-          "in" : "path",
-          "description" : "Формат выдачи результатов (json|xml)",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string",
-            "enum" : [ "json", "xml" ]
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/body"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Успешное выполнение",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_1"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Ошибка в запросе",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/400_bad_request"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Ошибка (Не заполнено поле или Партнерский ключ)",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_404_1"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{key}/country/update/{id}.{_format}" : {
-      "post" : {
-        "tags" : [ "Countries" ],
-        "summary" : "Обновление данных по стране",
-        "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "integer"
-          }
-        }, {
-          "name" : "_format",
-          "in" : "path",
-          "description" : "Формат выдачи результатов (json|xml)",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string",
-            "enum" : [ "json", "xml" ]
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/country"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Успешное выполнение",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_1"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Ошибка в запросе",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/400_bad_request"
                 }
               }
             }
@@ -315,7 +121,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_2"
+                  "$ref" : "#/components/schemas/inline_response_200"
                 }
               }
             }
@@ -409,7 +215,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_3"
+                  "$ref" : "#/components/schemas/inline_response_200_1"
                 }
               }
             }
@@ -481,7 +287,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_4"
+                  "$ref" : "#/components/schemas/inline_response_200_2"
                 }
               }
             }
@@ -529,7 +335,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_1"
+                "$ref" : "#/components/schemas/body"
               }
             }
           },
@@ -631,7 +437,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_2"
+                "$ref" : "#/components/schemas/body_1"
               }
             }
           },
@@ -643,7 +449,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_5"
+                  "$ref" : "#/components/schemas/inline_response_200_3"
                 }
               }
             }
@@ -723,7 +529,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_6"
+                  "$ref" : "#/components/schemas/inline_response_200_4"
                 }
               }
             }
@@ -771,7 +577,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_3"
+                "$ref" : "#/components/schemas/body_2"
               }
             }
           },
@@ -783,7 +589,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_1"
+                  "$ref" : "#/components/schemas/inline_response_200_5"
                 }
               }
             }
@@ -851,6 +657,508 @@
           "content" : {
             "application/json" : {
               "schema" : {
+                "$ref" : "#/components/schemas/body_3"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/400_bad_request"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/leads/{date_from}/{date_to}/{page}.{_format}" : {
+      "get" : {
+        "tags" : [ "Leads" ],
+        "summary" : "Получение данных по обращениям",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "date_from",
+          "in" : "path",
+          "description" : "Дата последнего обновления туриста (от)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "date_to",
+          "in" : "path",
+          "description" : "Дата последнего обновления туриста (до)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "page",
+          "in" : "path",
+          "description" : "Страница результатов (по 100 записей)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_6"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Внутренняя ошибка сервера (Note! Header status - 404 Not Found)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/leads/{date_from}/{date_to}/{source_id}/{page}.{_format}" : {
+      "get" : {
+        "tags" : [ "Leads" ],
+        "summary" : "Получение данных по обращениям согласно источнику",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "date_from",
+          "in" : "path",
+          "description" : "Дата последнего обновления туриста (от)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "date_to",
+          "in" : "path",
+          "description" : "Дата последнего обновления туриста (до)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "source_id",
+          "in" : "path",
+          "description" : "Id источника",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "page",
+          "in" : "path",
+          "description" : "Страница результатов (по 100 записей)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_7"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Внутренняя ошибка сервера (Note! Header status - 404 Not Found)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/leads/updated/{date_from}/{date_to}/{page}.{_format}" : {
+      "get" : {
+        "tags" : [ "Leads" ],
+        "summary" : "Получение данных по обновленным заявкам",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "date_from",
+          "in" : "path",
+          "description" : "Дата последнего обновления туриста (от)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "date_to",
+          "in" : "path",
+          "description" : "Дата последнего обновления туриста (до)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "page",
+          "in" : "path",
+          "description" : "Страница результатов (по 100 записей)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_8"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Внутренняя ошибка сервера (Note! Header status - 404 Not Found)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/lead-by-client/{id}/{page}.{_format}" : {
+      "get" : {
+        "tags" : [ "Leads" ],
+        "summary" : "Получение обращений по покупателю",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "page",
+          "in" : "path",
+          "description" : "Страница результатов (по 100 записей)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_9"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Внутренняя ошибка сервера (Note! Header status - 404 Not Found)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/lead/{id}.{_format}" : {
+      "get" : {
+        "tags" : [ "Leads" ],
+        "summary" : "Получение данных по обращению",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_10"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/lead/search.{_format}" : {
+      "post" : {
+        "tags" : [ "Leads" ],
+        "summary" : "Получение данных обращений по фильтрам",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
                 "$ref" : "#/components/schemas/body_4"
               }
             }
@@ -863,7 +1171,77 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_1"
+                  "$ref" : "#/components/schemas/inline_response_200_11"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/lead/create.{_format}" : {
+      "post" : {
+        "tags" : [ "Leads" ],
+        "summary" : "Добавление обращения",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_5"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_12"
                 }
               }
             }
@@ -874,6 +1252,306 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/400_bad_request"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Ошибка (Не заполнено поле или Партнерский ключ)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/status_lead.{_format}" : {
+      "get" : {
+        "tags" : [ "Leads" ],
+        "summary" : "Получение списка статусов обращений",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_13"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/countries.{_format}" : {
+      "get" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Получение списка стран",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_14"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/country/create.{_format}" : {
+      "post" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Добавление страны",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_6"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/400_bad_request"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Ошибка (Не заполнено поле или Партнерский ключ)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/country/update/{id}.{_format}" : {
+      "post" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Обновление данных по стране",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/country"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/400_bad_request"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/service_type.{_format}" : {
+      "get" : {
+        "tags" : [ "Service types" ],
+        "summary" : "Список типов услуг для заявки",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_15"
                 }
               }
             }
@@ -1330,6 +2008,342 @@
           "$ref" : "#/components/schemas/kit_extended_fields"
         } ]
       },
+      "model_lead_main" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "ID"
+          },
+          "id_system" : {
+            "type" : "integer",
+            "description" : "Системный ID"
+          },
+          "id_internal" : {
+            "type" : "string",
+            "description" : "Внутренний номер"
+          },
+          "reservation_number" : {
+            "type" : "string"
+          },
+          "supplier_id" : {
+            "type" : "integer",
+            "description" : "Компания партнер (Id)"
+          },
+          "supplier_name" : {
+            "type" : "string",
+            "description" : "Компания партнер (Наименование)"
+          },
+          "supplier_name_official" : {
+            "type" : "string",
+            "description" : "Компания партнер (Полное наименование)"
+          },
+          "supplier_inn" : {
+            "type" : "string",
+            "description" : "Компания партнер (ИНН)"
+          },
+          "dat" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата создания",
+            "format" : "date-time"
+          },
+          "dat_request" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "dat_lead" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата создания (Обращения)",
+            "format" : "date-time"
+          },
+          "office_id" : {
+            "type" : "integer",
+            "description" : "Офис (Id)"
+          },
+          "office_name" : {
+            "type" : "string",
+            "description" : "Офис (Наименование)"
+          },
+          "manager_id" : {
+            "type" : "integer",
+            "description" : "Менеджер (Id)"
+          },
+          "visa_id" : {
+            "type" : "integer",
+            "description" : "Виза (Id)"
+          },
+          "insurance_id" : {
+            "type" : "integer"
+          },
+          "manager_surname" : {
+            "type" : "string",
+            "description" : "Менеджер (Фамилия)"
+          },
+          "manager_sname" : {
+            "type" : "string",
+            "description" : "Менеджер (Отчество)"
+          },
+          "manager_name" : {
+            "type" : "string",
+            "description" : "Менеджер (Имя)"
+          },
+          "client_id" : {
+            "type" : "integer",
+            "description" : "Клиент (ID)"
+          },
+          "client_surname" : {
+            "type" : "string",
+            "description" : "Клиент (Фамилия)"
+          },
+          "client_name" : {
+            "type" : "string",
+            "description" : "Клиент (Имя)"
+          },
+          "client_sname" : {
+            "type" : "string",
+            "description" : "Клиент (Отчество)"
+          },
+          "client_phone" : {
+            "type" : "string",
+            "description" : "Клиент (Телефон)"
+          },
+          "client_phone_mobile" : {
+            "type" : "string",
+            "description" : "Клиент (Телефон - мобильный)"
+          },
+          "client_phone_home" : {
+            "type" : "string",
+            "description" : "Клиент (Телефон - домашний - для физ. лиц)"
+          },
+          "client_email" : {
+            "type" : "string",
+            "description" : "Клиент (E-mail)"
+          },
+          "client_company" : {
+            "type" : "string",
+            "description" : "Клиент (Компания)"
+          },
+          "client_inn" : {
+            "type" : "string",
+            "description" : "Клиент (ИНН)"
+          },
+          "client_kpp" : {
+            "type" : "string",
+            "description" : "Клиент (КПП)"
+          },
+          "social_vk" : {
+            "type" : "string",
+            "description" : "Клиент (Аккаунт во Вконтакте)"
+          },
+          "social_fb" : {
+            "type" : "string",
+            "description" : "Клиент (Аккаунт в Facebook)"
+          },
+          "social_ok" : {
+            "type" : "string",
+            "description" : "Клиент (Аккаунт в Одноклассниках)"
+          },
+          "telegram" : {
+            "type" : "string",
+            "description" : "Клиент (Аккаунт в Telegram)"
+          },
+          "instagram" : {
+            "type" : "string",
+            "description" : "Клиент (Аккаунт в Instagram)"
+          },
+          "whatsapp" : {
+            "type" : "string",
+            "description" : "Клиент (Аккаунт в Whatsapp)"
+          },
+          "viber" : {
+            "type" : "string",
+            "description" : "Клиент (Аккаунт в Viber)"
+          },
+          "date_begin" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата начала обслуживания",
+            "format" : "date-time"
+          },
+          "date_end" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата окончания обслуживания",
+            "format" : "date-time"
+          },
+          "source_id" : {
+            "type" : "integer",
+            "description" : "Источник (Id)"
+          },
+          "source" : {
+            "type" : "string",
+            "description" : "Источник (Наименование)"
+          },
+          "travel_type_id" : {
+            "type" : "integer",
+            "description" : "Тип заявки (Id)"
+          },
+          "travel_type" : {
+            "type" : "string",
+            "description" : "Тип заявки (Наименование)"
+          },
+          "status_id" : {
+            "type" : "string",
+            "description" : "Статус (Id)"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Статус (Наименование)"
+          },
+          "utm_source" : {
+            "type" : "string"
+          },
+          "utm_medium" : {
+            "type" : "string"
+          },
+          "utm_campaign" : {
+            "type" : "string"
+          },
+          "utm_content" : {
+            "type" : "string"
+          },
+          "utm_term" : {
+            "type" : "string"
+          },
+          "calc_price_netto" : {
+            "type" : "integer",
+            "description" : "Себестоимость"
+          },
+          "calc_price" : {
+            "type" : "integer",
+            "description" : "Стоимость для клиента"
+          },
+          "r_calc_partner_currency_id" : {
+            "type" : "integer"
+          },
+          "r_calc_client_currency_id" : {
+            "type" : "integer"
+          },
+          "calc_increase" : {
+            "type" : "integer",
+            "description" : "Сумма всех приходов"
+          },
+          "calc_decrease" : {
+            "type" : "integer",
+            "description" : "Сумма всех расходов"
+          },
+          "calc_client" : {
+            "type" : "integer",
+            "description" : "Сумма всех расчетов с клиентом"
+          },
+          "calc_partner" : {
+            "type" : "integer",
+            "description" : "Сумма всех расчетов с партнерами"
+          },
+          "client_requirements_country_ids" : {
+            "type" : "string",
+            "description" : "Пожелания клиента (Страны - Id)"
+          },
+          "client_requirements_date_from" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Пожелания клиента (Желаемые даты - от)",
+            "format" : "date-time"
+          },
+          "client_requirements_date_to" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Пожелания клиента (Желаемые даты - до)",
+            "format" : "date-time"
+          },
+          "client_requirements_days_from" : {
+            "type" : "integer",
+            "description" : "Пожелания клиента (Желаемое кол-во ночей - от)"
+          },
+          "client_requirements_days_to" : {
+            "type" : "integer",
+            "description" : "Пожелания клиента (Желаемое кол-во ночей - до)"
+          },
+          "client_requirements_hotel_stars" : {
+            "type" : "string",
+            "description" : "Пожелания клиента (Размещение)"
+          },
+          "client_requirements_nutrition_ids" : {
+            "type" : "string",
+            "description" : "Пожелания клиента (Питание - Id)"
+          },
+          "client_requirements_tourists_adult_count" : {
+            "type" : "integer",
+            "description" : "Пожелания клиента (Количество взрослых)"
+          },
+          "client_requirements_tourists_child_count" : {
+            "type" : "integer",
+            "description" : "Пожелания клиента (Количество детей)"
+          },
+          "client_requirements_tourists_child_age" : {
+            "type" : "integer",
+            "description" : "Пожелания клиента (Возраст детей)"
+          },
+          "client_requirements_tourists_baby_count" : {
+            "type" : "integer",
+            "description" : "Пожелания клиента (Количество младенцев)"
+          },
+          "client_requirements_budget" : {
+            "type" : "integer",
+            "description" : "Пожелания клиента (Цена / бюджет)"
+          },
+          "client_requirements_note" : {
+            "type" : "string",
+            "description" : "Пожелания клиента (Примечание)"
+          },
+          "dat_updated" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата обновления",
+            "format" : "date-time"
+          },
+          "created_at" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата создания",
+            "format" : "date-time"
+          },
+          "created_by_manager" : {
+            "type" : "integer",
+            "description" : "ID менеджера создавшего заявку"
+          },
+          "notes" : {
+            "type" : "string",
+            "description" : "Примечание"
+          },
+          "bonus_limit" : {
+            "type" : "integer"
+          },
+          "company_id" : {
+            "type" : "integer",
+            "description" : "Компания (Id)"
+          },
+          "company_name" : {
+            "type" : "string",
+            "description" : "Компания (наименование лат.)"
+          },
+          "company_fullname" : {
+            "type" : "string",
+            "description" : "Компания (Полное наименование)"
+          },
+          "company_name_rus" : {
+            "type" : "string",
+            "description" : "Компания (Наименование)"
+          },
+          "company_inn" : {
+            "type" : "string",
+            "description" : "Компания (ИНН)"
+          }
+        }
+      },
       "kit_user_names" : {
         "type" : "object",
         "properties" : {
@@ -1487,6 +2501,42 @@
           }
         }
       },
+      "kit_tours" : {
+        "type" : "object",
+        "properties" : {
+          "tours" : {
+            "type" : "array",
+            "description" : "Массив подборок туров",
+            "items" : {
+              "$ref" : "#/components/schemas/kit_tours_tours"
+            }
+          }
+        }
+      },
+      "kit_services" : {
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "type" : "array",
+            "description" : "Массив услуг (см.метод /service)",
+            "items" : {
+              "$ref" : "#/components/schemas/kit_services_services"
+            }
+          }
+        }
+      },
+      "kit_files" : {
+        "type" : "object",
+        "properties" : {
+          "files" : {
+            "type" : "array",
+            "description" : "Массив прикрепленных файлов (см.метод /request_file/create)",
+            "items" : {
+              "$ref" : "#/components/schemas/kit_files_files"
+            }
+          }
+        }
+      },
       "400_bad_request" : {
         "type" : "object",
         "properties" : {
@@ -1565,63 +2615,6 @@
       "inline_response_200" : {
         "type" : "object",
         "properties" : {
-          "records" : {
-            "type" : "array",
-            "items" : {
-              "allOf" : [ {
-                "type" : "object",
-                "properties" : {
-                  "id" : {
-                    "type" : "integer",
-                    "description" : "Id"
-                  }
-                }
-              }, {
-                "$ref" : "#/components/schemas/country"
-              }, {
-                "type" : "object",
-                "properties" : {
-                  "name_aliases" : {
-                    "type" : "string",
-                    "description" : "Id"
-                  }
-                }
-              } ]
-            }
-          }
-        },
-        "description" : "Список стран"
-      },
-      "body" : {
-        "allOf" : [ {
-          "$ref" : "#/components/schemas/country"
-        }, {
-          "required" : [ "name" ]
-        } ]
-      },
-      "inline_response_200_1" : {
-        "type" : "object",
-        "properties" : {
-          "result" : {
-            "type" : "integer",
-            "example" : 200
-          },
-          "id" : {
-            "type" : "string",
-            "example" : "11"
-          }
-        }
-      },
-      "inline_response_404_1" : {
-        "oneOf" : [ {
-          "$ref" : "#/components/schemas/404_wrong_key"
-        }, {
-          "$ref" : "#/components/schemas/404_empty_field"
-        } ]
-      },
-      "inline_response_200_2" : {
-        "type" : "object",
-        "properties" : {
           "users" : {
             "type" : "array",
             "items" : {
@@ -1642,7 +2635,7 @@
           }
         }
       },
-      "inline_response_200_3" : {
+      "inline_response_200_1" : {
         "type" : "object",
         "properties" : {
           "users" : {
@@ -1653,7 +2646,7 @@
           }
         }
       },
-      "inline_response_200_4" : {
+      "inline_response_200_2" : {
         "type" : "object",
         "properties" : {
           "users" : {
@@ -1686,7 +2679,7 @@
           }
         }
       },
-      "body_1" : {
+      "body" : {
         "type" : "object",
         "properties" : {
           "email" : {
@@ -1703,7 +2696,14 @@
           }
         }
       },
-      "body_2" : {
+      "inline_response_404_1" : {
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/404_wrong_key"
+        }, {
+          "$ref" : "#/components/schemas/404_empty_field"
+        } ]
+      },
+      "body_1" : {
         "type" : "object",
         "properties" : {
           "vkontakte" : {
@@ -1748,7 +2748,7 @@
           }
         }
       },
-      "inline_response_200_5" : {
+      "inline_response_200_3" : {
         "type" : "object",
         "properties" : {
           "users" : {
@@ -1763,7 +2763,7 @@
           }
         }
       },
-      "inline_response_200_6" : {
+      "inline_response_200_4" : {
         "type" : "object",
         "properties" : {
           "user" : {
@@ -1778,7 +2778,7 @@
           }
         }
       },
-      "body_3" : {
+      "body_2" : {
         "type" : "object",
         "allOf" : [ {
           "type" : "object",
@@ -1804,7 +2804,20 @@
           "$ref" : "#/components/schemas/model_user_update"
         } ]
       },
-      "body_4" : {
+      "inline_response_200_5" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "integer",
+            "example" : 200
+          },
+          "id" : {
+            "type" : "string",
+            "example" : "11"
+          }
+        }
+      },
+      "body_3" : {
         "type" : "object",
         "allOf" : [ {
           "type" : "object",
@@ -1817,6 +2830,398 @@
         }, {
           "$ref" : "#/components/schemas/model_user_update"
         } ]
+      },
+      "inline_response_200_6" : {
+        "type" : "object",
+        "properties" : {
+          "leads" : {
+            "type" : "array",
+            "items" : {
+              "allOf" : [ {
+                "$ref" : "#/components/schemas/model_lead_main"
+              }, {
+                "$ref" : "#/components/schemas/kit_services"
+              }, {
+                "$ref" : "#/components/schemas/kit_extended_fields"
+              } ]
+            }
+          }
+        }
+      },
+      "inline_response_200_7" : {
+        "type" : "object",
+        "properties" : {
+          "leads" : {
+            "type" : "array",
+            "items" : {
+              "allOf" : [ {
+                "$ref" : "#/components/schemas/model_lead_main"
+              }, {
+                "$ref" : "#/components/schemas/kit_services"
+              } ]
+            }
+          }
+        }
+      },
+      "inline_response_200_8" : {
+        "type" : "object",
+        "properties" : {
+          "requests" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/model_lead_main"
+            }
+          }
+        }
+      },
+      "inline_response_200_9" : {
+        "type" : "object",
+        "properties" : {
+          "leads" : {
+            "type" : "array",
+            "items" : {
+              "allOf" : [ {
+                "$ref" : "#/components/schemas/model_lead_main"
+              }, {
+                "$ref" : "#/components/schemas/kit_services"
+              } ]
+            }
+          },
+          "is_archive" : {
+            "type" : "integer",
+            "description" : "Признак помещения обрашения в архив"
+          }
+        }
+      },
+      "inline_response_200_10" : {
+        "type" : "object",
+        "properties" : {
+          "lead" : {
+            "type" : "array",
+            "items" : {
+              "allOf" : [ {
+                "$ref" : "#/components/schemas/model_lead_main"
+              }, {
+                "$ref" : "#/components/schemas/kit_tours"
+              }, {
+                "$ref" : "#/components/schemas/kit_services"
+              }, {
+                "$ref" : "#/components/schemas/kit_files"
+              }, {
+                "$ref" : "#/components/schemas/kit_extended_fields"
+              } ]
+            }
+          }
+        }
+      },
+      "body_4" : {
+        "type" : "object",
+        "properties" : {
+          "date_create_from" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата создания заявки (от)",
+            "format" : "date-time"
+          },
+          "date_create_to" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата создания заявки (до)",
+            "format" : "date-time"
+          },
+          "manager_ids" : {
+            "type" : "string",
+            "description" : "ID менеджеров (через запятую)"
+          },
+          "client_ids" : {
+            "type" : "string",
+            "description" : "ID клиентов (через запятую)"
+          },
+          "source_ids" : {
+            "type" : "string",
+            "description" : "ID источников (через запятую)"
+          },
+          "status_ids" : {
+            "type" : "string",
+            "description" : "ID статусов (через запятую)"
+          },
+          "page" : {
+            "type" : "integer",
+            "description" : "Номер страницы выдачи (по-умолчанию, 1)"
+          }
+        }
+      },
+      "inline_response_200_11" : {
+        "type" : "object",
+        "properties" : {
+          "leads" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/model_lead_main"
+            }
+          }
+        }
+      },
+      "body_5" : {
+        "type" : "object",
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "r_id_internal" : {
+              "type" : "string",
+              "description" : "Номер заявки"
+            },
+            "r_dat" : {
+              "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}",
+              "type" : "string",
+              "description" : "Дата создания",
+              "format" : "date-time"
+            },
+            "r_u_id" : {
+              "type" : "integer",
+              "description" : "ID менеджера, на которого будет назначен лид"
+            },
+            "r_co_id" : {
+              "type" : "integer",
+              "description" : "ID офиса, на который будет назначен лид"
+            },
+            "status_id" : {
+              "type" : "integer",
+              "description" : "ID статуса (см.метод /status_lead)"
+            },
+            "source" : {
+              "type" : "string",
+              "description" : "Источник заявки"
+            },
+            "touroperator_id" : {
+              "type" : "integer",
+              "description" : "ID партнера (см. метод /supplier)"
+            },
+            "travel_type_id" : {
+              "type" : "integer",
+              "description" : "ID типа заявки (см. метод /travel-type)"
+            },
+            "note" : {
+              "type" : "string",
+              "description" : "Примечание"
+            },
+            "date_from" : {
+              "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+              "type" : "string",
+              "description" : "Пожелания клиента (дата начала)",
+              "format" : "date-time"
+            },
+            "date_to" : {
+              "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+              "type" : "string",
+              "description" : "Пожелания клиента (дата окончания)",
+              "format" : "date-time"
+            },
+            "nights_from" : {
+              "type" : "string",
+              "description" : "Пожелания клиента (кол-во ночей (от))"
+            },
+            "nights_to" : {
+              "type" : "string",
+              "description" : "Пожелания клиента (кол-во ночей (до))"
+            },
+            "countries" : {
+              "type" : "string",
+              "description" : "Пожелания клиента (ID стран (через запятую, см.метод /countries))"
+            },
+            "hotel_types" : {
+              "type" : "string",
+              "description" : "Пожелания клиента (категории отелей (через запятую из списка 1*,2*,3*,4*,5*,5+*,Apts,Villa))"
+            },
+            "nutrition" : {
+              "type" : "string",
+              "description" : "Пожелания клиента (типы питания (через запятую из списка RO,BB,HB,HB+,FB,FB+,AI,UAI))"
+            },
+            "tourist_count" : {
+              "type" : "string",
+              "description" : "Пожелания клиента (Количество туристов (взрослые))"
+            },
+            "tourist_child_count" : {
+              "type" : "string",
+              "description" : "Пожелания клиента (Количество туристов (дети))"
+            },
+            "tourist_baby_count" : {
+              "type" : "string",
+              "description" : "Пожелания клиента (Количество туристов (младенцы))"
+            },
+            "budget" : {
+              "type" : "integer",
+              "description" : "Пожелания клиента (Бюджет клиента)"
+            },
+            "requirements_note" : {
+              "type" : "string",
+              "description" : "Пожелания клиента (Примечание)"
+            },
+            "u_surname" : {
+              "type" : "string",
+              "description" : "Фамилия клиента"
+            },
+            "u_name" : {
+              "type" : "string",
+              "description" : "Имя клиента"
+            },
+            "u_phone" : {
+              "type" : "string",
+              "description" : "Телефон клиента (одно из полей на выбор phone; mail; Vk; FB; Ok; Telegram…)"
+            },
+            "u_email" : {
+              "type" : "string",
+              "description" : "E-mail клиента (одно из полей)"
+            },
+            "u_social_vk" : {
+              "type" : "string",
+              "description" : "Аккаунт клиента ВКонтакте (одно из полей)"
+            },
+            "u_social_fb" : {
+              "type" : "string",
+              "description" : "Аккаунт клиента Facebook (одно из полей)"
+            },
+            "u_social_ok" : {
+              "type" : "string",
+              "description" : "Аккаунт клиента Oдноклассники (одно из полей)"
+            },
+            "u_telegram" : {
+              "type" : "string",
+              "description" : "Аккаунт клиента Telegram (одно из полей)"
+            },
+            "u_instagram" : {
+              "type" : "string",
+              "description" : "Аккаунт клиента Instagram (одно из полей)"
+            },
+            "u_whatsapp" : {
+              "type" : "string",
+              "description" : "Аккаунт клиента Whatsapp (одно из полей)"
+            },
+            "u_viber" : {
+              "type" : "string",
+              "description" : "Аккаунт клиента Viber (одно из полей)"
+            },
+            "u_password" : {
+              "type" : "string",
+              "description" : "Пароль клиента"
+            },
+            "u_note" : {
+              "type" : "string",
+              "description" : "Примечание клиента"
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/kit_extended_fields"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "utm_source" : {
+              "type" : "string",
+              "description" : "utm_source"
+            },
+            "utm_medium" : {
+              "type" : "string",
+              "description" : "utm_medium"
+            },
+            "utm_campaign" : {
+              "type" : "string",
+              "description" : "utm_campaign"
+            },
+            "utm_content" : {
+              "type" : "string",
+              "description" : "utm_content"
+            },
+            "utm_term" : {
+              "type" : "string",
+              "description" : "utm_term"
+            },
+            "reminder_datetime" : {
+              "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+              "type" : "string",
+              "description" : "Дата напоминания (замена стандартному напоминанию - Заполнить данные клиента (через 1 час))",
+              "format" : "date-time"
+            },
+            "reminder_text" : {
+              "type" : "string",
+              "description" : "Текст напоминания (замена стандартному напоминанию - Заполнить данные клиента (через 1 час))"
+            }
+          }
+        } ]
+      },
+      "inline_response_200_12" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "integer",
+            "example" : 200
+          },
+          "id" : {
+            "type" : "integer",
+            "example" : 11
+          }
+        }
+      },
+      "inline_response_200_13" : {
+        "type" : "object",
+        "properties" : {
+          "records" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_13_records"
+            }
+          }
+        },
+        "description" : "Список статусов обращений (заявок)"
+      },
+      "inline_response_200_14" : {
+        "type" : "object",
+        "properties" : {
+          "records" : {
+            "type" : "array",
+            "items" : {
+              "allOf" : [ {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "description" : "Id"
+                  }
+                }
+              }, {
+                "$ref" : "#/components/schemas/country"
+              }, {
+                "type" : "object",
+                "properties" : {
+                  "name_aliases" : {
+                    "type" : "string",
+                    "description" : "Другие названия страны (|alias|)",
+                    "example" : "|Spain|Espana|"
+                  }
+                }
+              } ]
+            }
+          }
+        },
+        "description" : "Список стран"
+      },
+      "body_6" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/country"
+        }, {
+          "required" : [ "name" ]
+        } ]
+      },
+      "inline_response_200_15" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_15_items"
+            }
+          }
+        },
+        "description" : "Список типов услуг"
       },
       "manager_users" : {
         "type" : "object",
@@ -2017,6 +3422,339 @@
             "description" : "Значение"
           }
         }
+      },
+      "kit_tours_tours" : {
+        "type" : "object",
+        "properties" : {
+          "city_from" : {
+            "type" : "string",
+            "description" : "Город вылета"
+          },
+          "country" : {
+            "type" : "string",
+            "description" : "Страна"
+          },
+          "resort" : {
+            "type" : "string",
+            "description" : "Город"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Отель"
+          },
+          "room" : {
+            "type" : "string",
+            "description" : "Тип номера"
+          },
+          "place" : {
+            "type" : "string",
+            "description" : "Тип размещения"
+          },
+          "checkin" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}",
+            "type" : "string",
+            "description" : "Дата (начало)",
+            "format" : "date"
+          },
+          "nights" : {
+            "type" : "string",
+            "description" : "Количество ночей"
+          },
+          "adults" : {
+            "type" : "string",
+            "description" : "Кол-во взрослых"
+          },
+          "children" : {
+            "type" : "string",
+            "description" : "Кол-во детей"
+          },
+          "child_ages" : {
+            "type" : "string",
+            "description" : "Возраст детей (через, запятую)"
+          },
+          "board" : {
+            "type" : "string",
+            "description" : "Питание"
+          },
+          "href" : {
+            "type" : "string",
+            "description" : "Ссылка на подробное описание услуги в Интернете"
+          },
+          "comment" : {
+            "type" : "string",
+            "description" : "Примечание"
+          },
+          "operator_id" : {
+            "type" : "string",
+            "description" : "Компания партнер (Id)"
+          },
+          "price" : {
+            "type" : "string",
+            "description" : "Стоимость"
+          },
+          "currency" : {
+            "type" : "string",
+            "description" : "Валюта (тип)"
+          },
+          "operator" : {
+            "type" : "string",
+            "description" : "Компания партнер (Наименование)"
+          }
+        }
+      },
+      "kit_services_services" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "Id"
+          },
+          "date_begin" : {
+            "type" : "string",
+            "description" : "Дата начала"
+          },
+          "date_end" : {
+            "type" : "string",
+            "description" : "Дата окончания"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Описание услуги"
+          },
+          "in_package" : {
+            "type" : "integer",
+            "description" : "В составе пакетного тура (0 - нет, 1 - да)"
+          },
+          "course" : {
+            "type" : "string",
+            "description" : "Маршрут"
+          },
+          "duration" : {
+            "type" : "string",
+            "description" : "Длительность услуги"
+          },
+          "price_netto" : {
+            "type" : "integer",
+            "description" : "Себестоимость"
+          },
+          "rate_netto" : {
+            "type" : "integer",
+            "description" : "Себестоимость (курс обмена валюты)"
+          },
+          "currency_id_netto" : {
+            "type" : "integer",
+            "description" : "Себестоимость (Id валюты)"
+          },
+          "price" : {
+            "type" : "integer",
+            "description" : "Стоимость клиенту"
+          },
+          "rate" : {
+            "type" : "integer",
+            "description" : "Стоимость клиенту (курс обмена валюты)"
+          },
+          "currency_id" : {
+            "type" : "integer",
+            "description" : "Стоимость клиенту (Id валюты)"
+          },
+          "discount" : {
+            "type" : "integer",
+            "description" : "Скидка"
+          },
+          "discount_in_percent" : {
+            "type" : "integer",
+            "description" : "Скидка в процентах"
+          },
+          "tourists_count" : {
+            "type" : "integer",
+            "description" : "Количество взрослых"
+          },
+          "tourists_child_count" : {
+            "type" : "integer",
+            "description" : "Количество детей"
+          },
+          "tourists_baby_count" : {
+            "type" : "integer",
+            "description" : "Количество младенцев"
+          },
+          "internet_link" : {
+            "type" : "string",
+            "description" : "Ссылка на подробное описание услуги в Интернет"
+          },
+          "is_active" : {
+            "type" : "integer",
+            "description" : "Признак активности услуги (0 - не активна, 1 - активна)"
+          },
+          "service_type" : {
+            "type" : "string",
+            "description" : "Услуга (наименование)"
+          },
+          "service_type_id" : {
+            "type" : "integer",
+            "description" : "Услуга (Id)"
+          },
+          "partner_id" : {
+            "type" : "integer",
+            "description" : "Партнер (Id)"
+          },
+          "partner_name" : {
+            "type" : "string",
+            "description" : "Партнер (наименование)"
+          },
+          "partner_name_en" : {
+            "type" : "string",
+            "description" : "Партнер (наименование лат.)"
+          },
+          "country_id" : {
+            "type" : "integer",
+            "description" : "Страна (Id)"
+          },
+          "country" : {
+            "type" : "string",
+            "description" : "Страна (наименование)"
+          },
+          "country_en" : {
+            "type" : "string",
+            "description" : "Страна (наименование лат.)"
+          },
+          "city_id" : {
+            "type" : "integer",
+            "description" : "Город (Id)"
+          },
+          "city" : {
+            "type" : "string",
+            "description" : "Город (наименование)"
+          },
+          "city_en" : {
+            "type" : "string",
+            "description" : "Город (наименование лат.)"
+          },
+          "hotel_id" : {
+            "type" : "integer",
+            "description" : "Отель (Id)"
+          },
+          "hotel" : {
+            "type" : "string",
+            "description" : "Отель (наименование)"
+          },
+          "hotel_en" : {
+            "type" : "string",
+            "description" : "Отель (наименование лат.)"
+          },
+          "hotel_type_id" : {
+            "type" : "integer",
+            "description" : "Тип номера (Id)"
+          },
+          "hotel_type" : {
+            "type" : "string",
+            "description" : "Тип номера (наименование)"
+          },
+          "hotel_type_en" : {
+            "type" : "string",
+            "description" : "Тип номера (наименование лат.)"
+          },
+          "hotel_place_id" : {
+            "type" : "integer",
+            "description" : "Тип размещения"
+          },
+          "hotel_place" : {
+            "type" : "string",
+            "description" : "Тип размещения"
+          },
+          "nutrition_id" : {
+            "type" : "integer",
+            "description" : "Питание (Id)"
+          },
+          "nutrition" : {
+            "type" : "string",
+            "description" : "Питание (наименование)"
+          },
+          "nutrition_en" : {
+            "type" : "string",
+            "description" : "Питание (наименование лат.)"
+          },
+          "currency_netto" : {
+            "type" : "string",
+            "description" : "Валюта для итоговой себестоимости"
+          },
+          "currency_code_netto" : {
+            "type" : "string",
+            "description" : "Валюта для итоговой себестоимости (код)"
+          },
+          "currency" : {
+            "type" : "string",
+            "description" : "Валюта для итоговой стоимости клиенту"
+          },
+          "currency_code" : {
+            "type" : "string",
+            "description" : "Валюта для итоговой стоимости клиенту (код)"
+          }
+        }
+      },
+      "kit_files_files" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "Id"
+          },
+          "request_id" : {
+            "type" : "integer",
+            "description" : "Id"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Наименование файла (в системе)"
+          },
+          "url" : {
+            "type" : "string",
+            "description" : "Пкть к файлу (url)"
+          },
+          "filename" : {
+            "type" : "string",
+            "description" : "Наименование файла (при загрузке)"
+          },
+          "file_note" : {
+            "type" : "string",
+            "description" : "Примечание"
+          },
+          "created" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата создания",
+            "format" : "date-time"
+          }
+        }
+      },
+      "inline_response_200_13_records" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "Id"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Название"
+          },
+          "is_archive" : {
+            "type" : "integer",
+            "description" : "Признак отправки в архив (0 - отображается, 1 - не отображается в списке активных заявок)"
+          }
+        }
+      },
+      "inline_response_200_15_items" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "Id"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Название типа услуги"
+          }
+        }
       }
     },
     "responses" : {
@@ -2025,7 +3763,17 @@
         "content" : {
           "application/json" : {
             "schema" : {
-              "$ref" : "#/components/schemas/inline_response_200_1"
+              "$ref" : "#/components/schemas/inline_response_200_5"
+            }
+          }
+        }
+      },
+      "200_result_id_int" : {
+        "description" : "Успешное выполнение",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/inline_response_200_12"
             }
           }
         }
@@ -2102,7 +3850,7 @@
       }
     },
     "parameters" : {
-      "keyParam" : {
+      "param_key" : {
         "name" : "key",
         "in" : "path",
         "description" : "API-ключ",
@@ -2113,7 +3861,7 @@
           "type" : "string"
         }
       },
-      "formatParam" : {
+      "param_format" : {
         "name" : "_format",
         "in" : "path",
         "description" : "Формат выдачи результатов (json|xml)",
@@ -2125,7 +3873,7 @@
           "enum" : [ "json", "xml" ]
         }
       },
-      "idParam" : {
+      "param_id" : {
         "name" : "id",
         "in" : "path",
         "description" : "ID",
@@ -2136,7 +3884,7 @@
           "type" : "integer"
         }
       },
-      "pageParam" : {
+      "param_page" : {
         "name" : "page",
         "in" : "path",
         "description" : "Страница результатов (по 100 записей)",
@@ -2147,7 +3895,18 @@
           "type" : "integer"
         }
       },
-      "dateFromParam" : {
+      "param_source_id" : {
+        "name" : "source_id",
+        "in" : "path",
+        "description" : "Id источника",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "integer"
+        }
+      },
+      "param_date_from" : {
         "name" : "date_from",
         "in" : "path",
         "description" : "Дата последнего обновления туриста (от)",
@@ -2160,7 +3919,7 @@
           "format" : "date"
         }
       },
-      "dateToParam" : {
+      "param_date_to" : {
         "name" : "date_to",
         "in" : "path",
         "description" : "Дата последнего обновления туриста (до)",
@@ -2173,7 +3932,7 @@
           "format" : "date"
         }
       },
-      "phoneParam" : {
+      "param_phone" : {
         "name" : "phone",
         "in" : "path",
         "description" : "Номер телефона",
