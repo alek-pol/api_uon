@@ -2802,6 +2802,8 @@
           }
         }, {
           "$ref" : "#/components/schemas/model_user_update"
+        }, {
+          "required" : [ "u_name" ]
         } ]
       },
       "inline_response_200_5" : {
@@ -3110,6 +3112,8 @@
               "description" : "Примечание клиента"
             }
           }
+        }, {
+          "required" : [ "u_email", "u_instagram", "u_phone", "u_social_fb", "u_social_ok", "u_social_vk", "u_telegram", "u_viber", "u_whatsapp" ]
         }, {
           "$ref" : "#/components/schemas/kit_extended_fields"
         }, {
