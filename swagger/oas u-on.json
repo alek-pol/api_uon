@@ -22,6 +22,12 @@
     "name" : "Leads",
     "description" : "Обращения"
   }, {
+    "name" : "Webhooks",
+    "description" : "Вебхуки"
+  }, {
+    "name" : "Call history",
+    "description" : "Информация о звонках"
+  }, {
     "name" : "Countries",
     "description" : "Страны"
   }, {
@@ -1319,6 +1325,356 @@
         }
       }
     },
+    "/{key}/webhook/{page}.{_format}" : {
+      "get" : {
+        "tags" : [ "Webhooks" ],
+        "summary" : "Получение списка вебхуков",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "path",
+          "description" : "Страница результатов (по 100 записей)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_14"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/webhook/create.{_format}" : {
+      "post" : {
+        "tags" : [ "Webhooks" ],
+        "summary" : "Добавление вебхука",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_6"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Ошибка (Не заполнено обязательное поле или Партнерский ключ)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/webhook/update/{id}.{_format}" : {
+      "post" : {
+        "tags" : [ "Webhooks" ],
+        "summary" : "Обновление вебхука",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/model_webhook"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Партнерский ключ неверен",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/webhook/delete/{id}.{_format}" : {
+      "post" : {
+        "tags" : [ "Webhooks" ],
+        "summary" : "Удаление вебхука",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_12"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Ошибка (Вебхук не найден или ошибка в партнерском ключе)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{key}/call_history/create.{_format}" : {
+      "post" : {
+        "tags" : [ "Call history" ],
+        "summary" : "Добавление информации о звонке",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "description" : "API-ключ",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "_format",
+          "in" : "path",
+          "description" : "Формат выдачи результатов (json|xml)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "json", "xml" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_7"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Успешное выполнение",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Ошибка в запросе",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Ошибка (Не заполнено обязательное поле или Партнерский ключ)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{key}/countries.{_format}" : {
       "get" : {
         "tags" : [ "Countries" ],
@@ -1351,7 +1707,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_14"
+                  "$ref" : "#/components/schemas/inline_response_200_15"
                 }
               }
             }
@@ -1399,7 +1755,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_6"
+                "$ref" : "#/components/schemas/body_8"
               }
             }
           },
@@ -1551,7 +1907,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_15"
+                  "$ref" : "#/components/schemas/inline_response_200_16"
                 }
               }
             }
@@ -2341,6 +2697,27 @@
           "company_inn" : {
             "type" : "string",
             "description" : "Компания (ИНН)"
+          }
+        }
+      },
+      "model_webhook" : {
+        "type" : "object",
+        "properties" : {
+          "type_id" : {
+            "type" : "integer",
+            "description" : "Тип вебхука (1 - Создание обращения, 2 - Создание заявки, 3 - Создание клиента, 4 - Изменение клиента, 5 - Удаление клиента, 6 - Создание партнера, 7 - Изменение партнера, 8 - Удаление партнера, 9 - Создание платежа, 10 - Изменение платежа, 11 - Удаление платежа, 12 - Создание услуги в заявке, 13 - Изменение услуги в заявке, 14 - Удаление услуги из заявки, 15 - Отправка сообщения в чате, 16 - Изменение статуса в обращении, 17 - Изменение статуса в заявке, 18 - Изменение цены нетто в заявке, 19 - Изменение цены клиента в заявке, 20 - Прикрепление файла в заявке, 21 - Удаление файла из заявки, 22 - Добавление туриста в заявке, 23 - Удаление туриста из заявки, 24 - Начисление баллов клиенту, 25 - Прикрепление покупателя в заявке, 26 - Открепление покупателя от заявки, 27 - Изменение причины отказа в обращении, 28 - Прикрепление бонусной карты к туристу, 29 - Изменение менеджера в обращении, 30 - Изменение менеджера в заявке, 31 - Добавление комментария в заявке или в карточке туриста, 32 - Уведомление туриста о событиях (перед вылетом / после возвращения и т.д.))"
+          },
+          "url" : {
+            "type" : "string",
+            "description" : "URL"
+          },
+          "method" : {
+            "type" : "string",
+            "description" : "Метод (GET/POST/PUT/DELETE), по-умолчанию GET"
+          },
+          "note" : {
+            "type" : "string",
+            "description" : "Примечание"
           }
         }
       },
@@ -3192,6 +3569,94 @@
                   }
                 }
               }, {
+                "$ref" : "#/components/schemas/model_webhook"
+              } ]
+            }
+          }
+        }
+      },
+      "body_6" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/model_webhook"
+        }, {
+          "required" : [ "type_id", "url" ]
+        } ]
+      },
+      "inline_response_404_2" : {
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/404_wrong_key"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "result" : {
+              "type" : "integer",
+              "example" : 404
+            },
+            "message" : {
+              "type" : "string",
+              "example" : "Webhook was not found"
+            }
+          }
+        } ]
+      },
+      "body_7" : {
+        "required" : [ "phone", "start" ],
+        "type" : "object",
+        "properties" : {
+          "manager_id" : {
+            "type" : "integer",
+            "description" : "ID менеджера (см.метод /manager)"
+          },
+          "direction" : {
+            "type" : "integer",
+            "description" : "Тип звонка (1 - входящий / 2 - исходящий)"
+          },
+          "phone" : {
+            "type" : "string",
+            "description" : "Номер телефона в любом формате (например, +7 xxx xxx-xx-xx)"
+          },
+          "start" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Время начала разговора",
+            "format" : "date-time"
+          },
+          "duration" : {
+            "type" : "integer",
+            "description" : "Длительность разговора в секундах"
+          },
+          "record_link" : {
+            "type" : "string",
+            "description" : "Ссылка на записанный разговор в формате http"
+          },
+          "note" : {
+            "type" : "string",
+            "description" : "Примечание"
+          },
+          "created" : {
+            "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}",
+            "type" : "string",
+            "description" : "Дата и время создания записи в истории, по-умолчанию, текущие дата и время",
+            "format" : "date-time"
+          }
+        }
+      },
+      "inline_response_200_15" : {
+        "type" : "object",
+        "properties" : {
+          "records" : {
+            "type" : "array",
+            "items" : {
+              "allOf" : [ {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "description" : "Id"
+                  }
+                }
+              }, {
                 "$ref" : "#/components/schemas/country"
               }, {
                 "type" : "object",
@@ -3208,20 +3673,20 @@
         },
         "description" : "Список стран"
       },
-      "body_6" : {
+      "body_8" : {
         "allOf" : [ {
           "$ref" : "#/components/schemas/country"
         }, {
           "required" : [ "name" ]
         } ]
       },
-      "inline_response_200_15" : {
+      "inline_response_200_16" : {
         "type" : "object",
         "properties" : {
           "items" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/inline_response_200_15_items"
+              "$ref" : "#/components/schemas/inline_response_200_16_items"
             }
           }
         },
@@ -3747,7 +4212,7 @@
           }
         }
       },
-      "inline_response_200_15_items" : {
+      "inline_response_200_16_items" : {
         "type" : "object",
         "properties" : {
           "id" : {
