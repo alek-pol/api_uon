@@ -3,14 +3,18 @@
   "info" : {
     "title" : "U-on API",
     "description" : "API - На основе выполненных запросов (отличается от документации представленной на портале https://api.u-on.ru/doc)",
-    "version" : "1r"
+    "contact" : {
+      "email" : "alek_pol@outlook.com"
+    },
+    "version" : "1.0.0"
   },
   "servers" : [ {
-    "url" : "https://api.u-on.ru",
-    "description" : "U-on api"
-  }, {
-    "url" : "https://virtserver.swaggerhub.com/alek-pol/U-on/1",
-    "description" : "SwaggerHub API Auto Mocking"
+    "url" : "https://api.u-on.ru/{key}",
+    "variables" : {
+      "key" : {
+        "description" : "key"
+      }
+    }
   } ],
   "tags" : [ {
     "name" : "Managers",
@@ -35,21 +39,11 @@
     "description" : "Типы услуг"
   } ],
   "paths" : {
-    "/{key}/manager.{_format}" : {
+    "/manager.{_format}" : {
       "get" : {
         "tags" : [ "Managers" ],
         "summary" : "Список сотрудников компании",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -85,21 +79,11 @@
         }
       }
     },
-    "/{key}/users/{page}.{_format}" : {
+    "/users/{page}.{_format}" : {
       "get" : {
         "tags" : [ "Users" ],
         "summary" : "Список туристов / юр.лиц / турагентств (постранично)",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "page",
           "in" : "path",
           "description" : "Страница результатов (по 100 записей)",
@@ -155,21 +139,11 @@
         }
       }
     },
-    "/{key}/user/updated/{date_from}/{date_to}/{page}.{_format}" : {
+    "/user/updated/{date_from}/{date_to}/{page}.{_format}" : {
       "get" : {
         "tags" : [ "Users" ],
         "summary" : "Список обновленных туристов / юр.лиц / турагентств (постранично)",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "date_from",
           "in" : "path",
           "description" : "Дата последнего обновления туриста (от)",
@@ -249,21 +223,11 @@
         }
       }
     },
-    "/{key}/user/phone/{phone}.{_format}" : {
+    "/user/phone/{phone}.{_format}" : {
       "get" : {
         "tags" : [ "Users" ],
         "summary" : "Поиск туриста / юр.лица / турагентства по номеру телефона",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "phone",
           "in" : "path",
           "description" : "Номер телефона",
@@ -311,21 +275,11 @@
         }
       }
     },
-    "/{key}/user/email.{_format}" : {
+    "/user/email.{_format}" : {
       "post" : {
         "tags" : [ "Users" ],
         "summary" : "Поиск туриста / юр.лица / турагентства по E-mail",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -413,21 +367,11 @@
         }
       }
     },
-    "/{key}/user/search.{_format}" : {
+    "/user/search.{_format}" : {
       "post" : {
         "tags" : [ "Users" ],
         "summary" : "Получение данных пользователей по фильтрам",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -493,21 +437,11 @@
         }
       }
     },
-    "/{key}/user/{id}.{_format}" : {
+    "/user/{id}.{_format}" : {
       "get" : {
         "tags" : [ "Users" ],
         "summary" : "Получение данных по конкретному туристу / юр.лицу / турагентству",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "ID",
@@ -553,21 +487,11 @@
         }
       }
     },
-    "/{key}/user/create.{_format}" : {
+    "/user/create.{_format}" : {
       "post" : {
         "tags" : [ "Users" ],
         "summary" : "Добавление туриста / юр.лица / турагентства",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -623,21 +547,11 @@
         }
       }
     },
-    "/{key}/user/update/{id}.{_format}" : {
+    "/user/update/{id}.{_format}" : {
       "post" : {
         "tags" : [ "Users" ],
         "summary" : "Обновление туриста / юр.лица / турагентства",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "ID",
@@ -703,21 +617,11 @@
         }
       }
     },
-    "/{key}/leads/{date_from}/{date_to}/{page}.{_format}" : {
+    "/leads/{date_from}/{date_to}/{page}.{_format}" : {
       "get" : {
         "tags" : [ "Leads" ],
         "summary" : "Получение данных по обращениям",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "date_from",
           "in" : "path",
           "description" : "Дата последнего обновления туриста (от)",
@@ -797,21 +701,11 @@
         }
       }
     },
-    "/{key}/leads/{date_from}/{date_to}/{source_id}/{page}.{_format}" : {
+    "/leads/{date_from}/{date_to}/{source_id}/{page}.{_format}" : {
       "get" : {
         "tags" : [ "Leads" ],
         "summary" : "Получение данных по обращениям согласно источнику",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "date_from",
           "in" : "path",
           "description" : "Дата последнего обновления туриста (от)",
@@ -901,21 +795,11 @@
         }
       }
     },
-    "/{key}/leads/updated/{date_from}/{date_to}/{page}.{_format}" : {
+    "/leads/updated/{date_from}/{date_to}/{page}.{_format}" : {
       "get" : {
         "tags" : [ "Leads" ],
         "summary" : "Получение данных по обновленным заявкам",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "date_from",
           "in" : "path",
           "description" : "Дата последнего обновления туриста (от)",
@@ -995,21 +879,11 @@
         }
       }
     },
-    "/{key}/lead-by-client/{id}/{page}.{_format}" : {
+    "/lead-by-client/{id}/{page}.{_format}" : {
       "get" : {
         "tags" : [ "Leads" ],
         "summary" : "Получение обращений по покупателю",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "ID",
@@ -1075,21 +949,11 @@
         }
       }
     },
-    "/{key}/lead/{id}.{_format}" : {
+    "/lead/{id}.{_format}" : {
       "get" : {
         "tags" : [ "Leads" ],
         "summary" : "Получение данных по обращению",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "ID",
@@ -1135,21 +999,11 @@
         }
       }
     },
-    "/{key}/lead/search.{_format}" : {
+    "/lead/search.{_format}" : {
       "post" : {
         "tags" : [ "Leads" ],
         "summary" : "Получение данных обращений по фильтрам",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -1205,21 +1059,11 @@
         }
       }
     },
-    "/{key}/lead/create.{_format}" : {
+    "/lead/create.{_format}" : {
       "post" : {
         "tags" : [ "Leads" ],
         "summary" : "Добавление обращения",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -1275,21 +1119,11 @@
         }
       }
     },
-    "/{key}/status_lead.{_format}" : {
+    "/status_lead.{_format}" : {
       "get" : {
         "tags" : [ "Leads" ],
         "summary" : "Получение списка статусов обращений",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -1325,21 +1159,11 @@
         }
       }
     },
-    "/{key}/webhook/{page}.{_format}" : {
+    "/webhook/{page}.{_format}" : {
       "get" : {
         "tags" : [ "Webhooks" ],
         "summary" : "Получение списка вебхуков",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "page",
           "in" : "path",
           "description" : "Страница результатов (по 100 записей)",
@@ -1385,21 +1209,11 @@
         }
       }
     },
-    "/{key}/webhook/create.{_format}" : {
+    "/webhook/create.{_format}" : {
       "post" : {
         "tags" : [ "Webhooks" ],
         "summary" : "Добавление вебхука",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -1455,21 +1269,11 @@
         }
       }
     },
-    "/{key}/webhook/update/{id}.{_format}" : {
+    "/webhook/update/{id}.{_format}" : {
       "post" : {
         "tags" : [ "Webhooks" ],
         "summary" : "Обновление вебхука",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "ID",
@@ -1535,21 +1339,11 @@
         }
       }
     },
-    "/{key}/webhook/delete/{id}.{_format}" : {
+    "/webhook/delete/{id}.{_format}" : {
       "post" : {
         "tags" : [ "Webhooks" ],
         "summary" : "Удаление вебхука",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "ID",
@@ -1605,21 +1399,11 @@
         }
       }
     },
-    "/{key}/call_history/create.{_format}" : {
+    "/call_history/create.{_format}" : {
       "post" : {
         "tags" : [ "Call history" ],
         "summary" : "Добавление информации о звонке",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -1675,21 +1459,11 @@
         }
       }
     },
-    "/{key}/countries.{_format}" : {
+    "/countries.{_format}" : {
       "get" : {
         "tags" : [ "Countries" ],
         "summary" : "Получение списка стран",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -1725,21 +1499,11 @@
         }
       }
     },
-    "/{key}/country/create.{_format}" : {
+    "/country/create.{_format}" : {
       "post" : {
         "tags" : [ "Countries" ],
         "summary" : "Добавление страны",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -1795,21 +1559,11 @@
         }
       }
     },
-    "/{key}/country/update/{id}.{_format}" : {
+    "/country/update/{id}.{_format}" : {
       "post" : {
         "tags" : [ "Countries" ],
         "summary" : "Обновление данных по стране",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "ID",
@@ -1875,21 +1629,11 @@
         }
       }
     },
-    "/{key}/service_type.{_format}" : {
+    "/service_type.{_format}" : {
       "get" : {
         "tags" : [ "Service types" ],
         "summary" : "Список типов услуг для заявки",
         "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "description" : "API-ключ",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "_format",
           "in" : "path",
           "description" : "Формат выдачи результатов (json|xml)",
@@ -1968,11 +1712,13 @@
             },
             "u_type" : {
               "type" : "integer",
-              "description" : "Тип записи (1 - физ.лицо, 2 - юр.лицо, 3 - турагентство)"
+              "description" : "Тип записи (1 - физ.лицо, 2 - юр.лицо, 3 - турагентство)",
+              "enum" : [ 1, 2, 3 ]
             },
             "tourist_kind" : {
               "type" : "integer",
-              "description" : "Обращение (0 - не заполнено, 1 - Mr., 2 - Mrs., 3 - Miss, 4 - Child, 5 - Infant)"
+              "description" : "Обращение (0 - не заполнено, 1 - Mr., 2 - Mrs., 3 - Miss, 4 - Child, 5 - Infant)",
+              "enum" : [ 0, 1, 2, 3, 4, 5 ]
             }
           }
         }, {
@@ -1986,7 +1732,8 @@
             },
             "u_sex" : {
               "type" : "integer",
-              "description" : "Пол (0 - не указан, 1 - муж., 2 - жен.)"
+              "description" : "Пол (0 - не указан, 1 - муж., 2 - жен.)",
+              "enum" : [ 0, 1, 2 ]
             },
             "u_fax" : {
               "type" : "string",
@@ -2084,7 +1831,8 @@
           "properties" : {
             "delivery_subscription" : {
               "type" : "integer",
-              "description" : "Согласие на получение массовых рассылок (0 - Нет, 1 - Да)"
+              "description" : "Согласие на получение массовых рассылок (0 - Нет, 1 - Да)",
+              "enum" : [ 0, 1 ]
             },
             "bcard_id" : {
               "type" : "integer",
@@ -2108,11 +1856,13 @@
             },
             "active" : {
               "type" : "integer",
-              "description" : "Отметка активности учетной записи (0 - Нет, 1 - Да)"
+              "description" : "Отметка активности учетной записи (0 - Нет, 1 - Да)",
+              "enum" : [ 0, 1 ]
             },
             "deleted" : {
               "type" : "integer",
-              "description" : "Отметка удаления учетной записи (0 - Нет, 1 - Да)"
+              "description" : "Отметка удаления учетной записи (0 - Нет, 1 - Да)",
+              "enum" : [ 0, 1 ]
             },
             "ip_internal_number" : {
               "type" : "string",
@@ -2129,7 +1879,8 @@
             },
             "cabinet_created" : {
               "type" : "integer",
-              "description" : "Отметка создания личного кабинета (0 - отсутствует, 1 - создан)"
+              "description" : "Отметка создания личного кабинета (0 - отсутствует, 1 - создан)",
+              "enum" : [ 0, 1 ]
             },
             "cabinet_created_date" : {
               "pattern" : "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}",
@@ -2157,11 +1908,13 @@
             },
             "u_type" : {
               "type" : "string",
-              "description" : "Тип записи (1 - физ.лицо, 2 - юр.лицо, 3 - турагентство)"
+              "description" : "Тип записи (1 - физ.лицо, 2 - юр.лицо, 3 - турагентство)",
+              "enum" : [ "1", "2", "3" ]
             },
             "tourist_kind" : {
               "type" : "string",
-              "description" : "Обращение (0 - не заполнено, 1 - Mr., 2 - Mrs., 3 - Miss, 4 - Child, 5 - Infant)"
+              "description" : "Обращение (0 - не заполнено, 1 - Mr., 2 - Mrs., 3 - Miss, 4 - Child, 5 - Infant)",
+              "enum" : [ "0", "1", "2", "3", "4", "5" ]
             }
           }
         }, {
@@ -2175,7 +1928,8 @@
             },
             "u_sex" : {
               "type" : "string",
-              "description" : "Пол (0 - не указан, 1 - муж., 2 - жен.)"
+              "description" : "Пол (0 - не указан, 1 - муж., 2 - жен.)",
+              "enum" : [ "0", "1", "2" ]
             },
             "u_phone" : {
               "type" : "string",
@@ -2705,7 +2459,8 @@
         "properties" : {
           "type_id" : {
             "type" : "integer",
-            "description" : "Тип вебхука (1 - Создание обращения, 2 - Создание заявки, 3 - Создание клиента, 4 - Изменение клиента, 5 - Удаление клиента, 6 - Создание партнера, 7 - Изменение партнера, 8 - Удаление партнера, 9 - Создание платежа, 10 - Изменение платежа, 11 - Удаление платежа, 12 - Создание услуги в заявке, 13 - Изменение услуги в заявке, 14 - Удаление услуги из заявки, 15 - Отправка сообщения в чате, 16 - Изменение статуса в обращении, 17 - Изменение статуса в заявке, 18 - Изменение цены нетто в заявке, 19 - Изменение цены клиента в заявке, 20 - Прикрепление файла в заявке, 21 - Удаление файла из заявки, 22 - Добавление туриста в заявке, 23 - Удаление туриста из заявки, 24 - Начисление баллов клиенту, 25 - Прикрепление покупателя в заявке, 26 - Открепление покупателя от заявки, 27 - Изменение причины отказа в обращении, 28 - Прикрепление бонусной карты к туристу, 29 - Изменение менеджера в обращении, 30 - Изменение менеджера в заявке, 31 - Добавление комментария в заявке или в карточке туриста, 32 - Уведомление туриста о событиях (перед вылетом / после возвращения и т.д.))"
+            "description" : "Тип вебхука (1 - Создание обращения, 2 - Создание заявки, 3 - Создание клиента, 4 - Изменение клиента, 5 - Удаление клиента, 6 - Создание партнера, 7 - Изменение партнера, 8 - Удаление партнера, 9 - Создание платежа, 10 - Изменение платежа, 11 - Удаление платежа, 12 - Создание услуги в заявке, 13 - Изменение услуги в заявке, 14 - Удаление услуги из заявки, 15 - Отправка сообщения в чате, 16 - Изменение статуса в обращении, 17 - Изменение статуса в заявке, 18 - Изменение цены нетто в заявке, 19 - Изменение цены клиента в заявке, 20 - Прикрепление файла в заявке, 21 - Удаление файла из заявки, 22 - Добавление туриста в заявке, 23 - Удаление туриста из заявки, 24 - Начисление баллов клиенту, 25 - Прикрепление покупателя в заявке, 26 - Открепление покупателя от заявки, 27 - Изменение причины отказа в обращении, 28 - Прикрепление бонусной карты к туристу, 29 - Изменение менеджера в обращении, 30 - Изменение менеджера в заявке, 31 - Добавление комментария в заявке или в карточке туриста, 32 - Уведомление туриста о событиях (перед вылетом / после возвращения и т.д.))",
+            "enum" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 ]
           },
           "url" : {
             "type" : "string",
@@ -3705,7 +3460,8 @@
           },
           "u_type" : {
             "type" : "integer",
-            "description" : "Тип записи (1 - физ.лицо, 2 - юр.лицо, 3 - турагентство)"
+            "description" : "Тип записи (1 - физ.лицо, 2 - юр.лицо, 3 - турагентство)",
+            "enum" : [ 1, 2, 3 ]
           },
           "u_surname" : {
             "type" : "string",
@@ -3733,7 +3489,8 @@
           },
           "u_sex" : {
             "type" : "integer",
-            "description" : "Пол (0 - не указан, 1 - муж., 2 - жен.)"
+            "description" : "Пол (0 - не указан, 1 - муж., 2 - жен.)",
+            "enum" : [ 0, 1, 2 ]
           },
           "u_phone" : {
             "type" : "string",
@@ -3837,11 +3594,13 @@
           },
           "active" : {
             "type" : "integer",
-            "description" : "Активная учетная запись (0 - Нет, 1 - Да)"
+            "description" : "Активная учетная запись (0 - Нет, 1 - Да)",
+            "enum" : [ 0, 1 ]
           },
           "deleted" : {
             "type" : "integer",
-            "description" : "Удаленная учетная запись (0 - Нет, 1 - Да)"
+            "description" : "Удаленная учетная запись (0 - Нет, 1 - Да)",
+            "enum" : [ 0, 1 ]
           },
           "ip_internal_number" : {
             "type" : "string",
@@ -3854,7 +3613,8 @@
           },
           "cabinet_created" : {
             "type" : "integer",
-            "description" : "Личный кабинет (0 - отсутствует, 1 - создан)"
+            "description" : "Личный кабинет (0 - отсутствует, 1 - создан)",
+            "enum" : [ 0, 1 ]
           },
           "cabinet_created_date" : {
             "type" : "string",
@@ -3992,7 +3752,8 @@
           },
           "in_package" : {
             "type" : "integer",
-            "description" : "В составе пакетного тура (0 - нет, 1 - да)"
+            "description" : "В составе пакетного тура (0 - нет, 1 - да)",
+            "enum" : [ 0, 1 ]
           },
           "course" : {
             "type" : "string",
@@ -4052,7 +3813,8 @@
           },
           "is_active" : {
             "type" : "integer",
-            "description" : "Признак активности услуги (0 - не активна, 1 - активна)"
+            "description" : "Признак активности услуги (0 - не активна, 1 - активна)",
+            "enum" : [ 0, 1 ]
           },
           "service_type" : {
             "type" : "string",
